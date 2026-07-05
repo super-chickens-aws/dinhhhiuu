@@ -1,0 +1,51 @@
+baseURL = 'https://super-chickens-aws.github.io/dinhhhiuu/'
+locale = 'en-us'
+title = 'My New Hugo Project'
+theme = 'hugo-theme-relearn'
+
+defaultContentLanguage = 'en'
+
+[languages]
+  [languages.en]
+    languageCode = 'en'
+    languageName = 'English'
+    title = 'My Website'
+    weight = 1
+
+  [languages.vi]
+    languageCode = 'vi'
+    languageName = 'Vietnamese'
+    title = 'Báo cáo thực tập'
+    weight = 2
+
+[params]
+    disableLanguageSwitchingButton = false
+    linkTitle = "Báo cáo\nThực tập"
+    showVisitedLinks = true
+    disableLandingPageButton = true
+    alwaysopen = true
+
+    [params.logo]
+        direction = 'column'
+        src = 'https://raw.githubusercontent.com/thienluhoan/fcj-workshop-template/c49d6013b9339beee033cfb09bf97e6690180511/static/AWS_Logo.svg?inlinecontent'
+
+    [[params.themeVariant]]
+        identifier = 'zen-dark'
+        name = 'Dark'
+
+    [[params.themeVariant]]
+        identifier = 'Blue'
+        name = 'Light'
+
+    dateFormat = ':date_medium'
+
+[author]
+    email = 'dinhtanhieu2005@gmail.com'
+    name = 'dinhhhiuu'
+
+images = ['https://workshop-sample.awsfcaj.com/images/avatar.png']
+
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true
