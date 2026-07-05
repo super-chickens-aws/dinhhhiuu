@@ -6,17 +6,17 @@ theme = 'hugo-theme-relearn'
 defaultContentLanguage = 'en'
 
 [languages]
-  [languages.en]
-    languageCode = 'en'
-    languageName = 'English'
-    title = 'My Website'
-    weight = 1
+    [languages.en]
+        locale = "en-US"
+        label = "English"
+        title = "My Website"
+        weight = 1
 
-  [languages.vi]
-    languageCode = 'vi'
-    languageName = 'Vietnamese'
-    title = 'Báo cáo thực tập'
-    weight = 2
+    [languages.vi]
+        locale = "vi-VN"
+        label = "Tiếng Việt"
+        title = "Báo cáo thực tập"
+        weight = 2
 
 [params]
     disableLanguageSwitchingButton = false
@@ -34,7 +34,7 @@ defaultContentLanguage = 'en'
         name = 'Dark'
 
     [[params.themeVariant]]
-        identifier = 'Blue'
+        identifier = 'blue'
         name = 'Light'
 
     dateFormat = ':date_medium'
