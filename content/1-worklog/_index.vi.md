@@ -1,9 +1,6 @@
 +++
 title = '1. Nhật ký thực tập'
 weight = 1
-
-[params]
-  collapsibleMenu = true
 +++
 
 {{% notice warning %}}

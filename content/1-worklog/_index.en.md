@@ -1,9 +1,6 @@
 +++
 title = '1. Worklog'
 weight = 1
-
-[params]
-  collapsibleMenu = true
 +++
 
 

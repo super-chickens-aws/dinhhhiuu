@@ -23,7 +23,7 @@ defaultContentLanguage = 'en'
     linkTitle = "Báo cáo\nThực tập"
     showVisitedLinks = true
     disableLandingPageButton = true
-    alwaysopen = true
+    collapsibleMenu = true
 
     [params.logo]
         direction = 'column'

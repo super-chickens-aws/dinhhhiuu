@@ -1,6 +1,5 @@
 +++
-title = "Internship Report"
-type = "home"
+title = "Internship Report"   
 +++
 
 Welcome to my internship report. This website summarizes my learning journey, weekly activities, projects, and achievements during the internship at **Amazon Web Services (AWS) Vietnam**.

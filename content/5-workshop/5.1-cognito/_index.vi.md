@@ -1,12 +1,12 @@
 +++
-title = '5. Workshop'
-weight = 5
+title = '5.1 Cognito'
+weight = 1
 
 [params]
   collapsibleMenu = true
 +++
 
-<!-- ## Thiết lập xác thưc người dùng
+## Thiết lập xác thưc người dùng
 
 ### Sử dụng dịch vụ cognito
 
@@ -35,4 +35,4 @@ Ta sẽ có User_pool_ID
 
 Amazon Cognito -> User pools -> User pool - [id] -> App clients
 
-Ta sẽ có Client ID -->
+Ta sẽ có Client ID
