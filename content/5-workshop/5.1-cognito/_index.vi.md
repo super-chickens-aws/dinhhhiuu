@@ -6,33 +6,55 @@ weight = 1
   collapsibleMenu = true
 +++
 
-## Thiết lập xác thưc người dùng
+## Thiết lập xác thực người dùng
 
-### Sử dụng dịch vụ cognito
+### Sử dụng dịch vụ Cognito
 
-Cognito -> User Pool -> Create user pool
+Truy cập:
 
-#### cài đặt
+**Amazon Cognito** → **User pools** → **Create user pool**
 
-- Xác thực được sử dụng cho react nên thiết lập theo SPA ()
-- Đặt tên cho ứng dụng xác thực
+### Cài đặt
+
+Thiết lập các thông tin cơ bản:
+
+- Ứng dụng xác thực sử dụng **React**, vì vậy chọn loại ứng dụng **SPA (Single Page Application)**.
+- Đặt tên cho ứng dụng xác thực.
 
 ![Mô tả ảnh](https://super-chickens-aws.github.io/dinhhhiuu/images/prj1.png)
 
-- Thiết lập các yêu cầu khi đăng nhập
+Thiết lập các yêu cầu khi đăng nhập.
 
 ![Mô tả ảnh](https://super-chickens-aws.github.io/dinhhhiuu/images/prj2.png)
 
-- Đường dẫn sau khi đăng nhập thành công
+Thiết lập đường dẫn chuyển hướng sau khi đăng nhập thành công.
 
 ![Mô tả ảnh](https://super-chickens-aws.github.io/dinhhhiuu/images/prj3.png)
 
-#### Những thông tin cần thiết để sử dụng cho việc code
+Sau khi hoàn tất, nhấn **Create user pool** để tạo User Pool.
 
-Amazon Cognito -> User pools -> User pool - [id] -> Overview
+---
 
-Ta sẽ có User_pool_ID
+## Những thông tin cần thiết để sử dụng khi lập trình
 
-Amazon Cognito -> User pools -> User pool - [id] -> App clients
+Để kết nối ứng dụng với Amazon Cognito, cần lấy các thông tin sau.
 
-Ta sẽ có Client ID
+### User Pool ID
+
+Truy cập:
+
+**Amazon Cognito** → **User pools** → **User pool - [id]** → **Overview**
+
+Tại đây sẽ có:
+
+- **User Pool ID**
+
+### Client ID
+
+Truy cập:
+
+**Amazon Cognito** → **User pools** → **User pool - [id]** → **App clients**
+
+Tại đây sẽ có:
+
+- **Client ID**
