@@ -12,7 +12,7 @@ Lambda -> Functions -> Create function
 
 Thiết lập thông tin cơ bản: Tên hàm và ngôn ngữ triển khai serverless
 
-![Mô tả ảnh](/images/prj4.png)
+![Mô tả ảnh](https://super-chickens-aws.github.io/dinhhhiuu/images/prj4.png)
 
 Ấn Create Function để hoàn tất
 

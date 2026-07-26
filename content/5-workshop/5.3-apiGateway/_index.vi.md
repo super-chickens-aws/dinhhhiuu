@@ -12,17 +12,17 @@ API Gateway -> Create API
 
 Chọn **HTTP API** -> **Build**
 
-![Mô tả ảnh](/images/prj5.png)
+![Mô tả ảnh](https://super-chickens-aws.github.io/dinhhhiuu/images/prj5.png)
 
 Thiết lập các tuyến đường phù hợp
 
-![Mô tả ảnh](/images/prj6.png)
+![Mô tả ảnh](https://super-chickens-aws.github.io/dinhhhiuu/images/prj6.png)
 
 Xác định các giai đoạn
 
 không thay đổi gì
 
-![Mô tả ảnh](/images/prj7.png)
+![Mô tả ảnh](https://super-chickens-aws.github.io/dinhhhiuu/images/prj7.png)
 
 Ấn `Create` để hoàn thành
 

@@ -17,15 +17,15 @@ Cognito -> User Pool -> Create user pool
 - Xác thực được sử dụng cho react nên thiết lập theo SPA ()
 - Đặt tên cho ứng dụng xác thực
 
-![Mô tả ảnh](/images/prj1.png)
+![Mô tả ảnh](https://super-chickens-aws.github.io/dinhhhiuu/images/prj1.png)
 
 - Thiết lập các yêu cầu khi đăng nhập
 
-![Mô tả ảnh](/images/prj2.png)
+![Mô tả ảnh](https://super-chickens-aws.github.io/dinhhhiuu/images/prj2.png)
 
 - Đường dẫn sau khi đăng nhập thành công
 
-![Mô tả ảnh](/images/prj3.png)
+![Mô tả ảnh](https://super-chickens-aws.github.io/dinhhhiuu/images/prj3.png)
 
 #### Những thông tin cần thiết để sử dụng cho việc code
 
