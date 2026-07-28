@@ -26,16 +26,7 @@ Website này được xây dựng bằng **Hugo** và sử dụng giao diện **
 
 <br>
 
-<div style="text-align:center;">
-    <img src="/images/avatar.jpg"
-         width="600"
-         height="660"
-         style="
-            border-radius:4px;
-            border:2px solid #ddd;
-            box-shadow:0 4px 10px rgba(0,0,0,.2);
-         ">
-</div>
+{{< avatar >}}
 
 ---
 
