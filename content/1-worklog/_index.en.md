@@ -1,56 +1,42 @@
 +++
-title = '1. Worklog'
+title = "1. Internship Log"
 weight = 1
+
+[params]
+  collapsibleMenu = true
 +++
 
+During my **08-week** internship at **Amazon Web Services Vietnam Company Limited**, I participated in the **Workforce Bootcamp – First Cloud AI Journey** program, with the objective of learning and practicing core services on the Amazon Web Services (AWS) cloud platform.
 
-{{% notice warning %}} 
-⚠️ **Note:** The following information is for reference purposes only. Please **do not copy verbatim** for your own report, including this warning.
-{{% /notice %}}
+The internship was designed as a structured learning path, starting with fundamental cloud concepts and progressing toward the deployment of a complete application on AWS. The program covered infrastructure services, networking, user authentication, serverless architecture, and cloud application deployment.
 
+Throughout the internship, I worked with a variety of AWS services, including:
 
-### Week 1 Objectives:
+- AWS Identity and Access Management (IAM)
+- Amazon EC2
+- Amazon S3
+- Amazon VPC
+- AWS Lambda
+- Amazon API Gateway
+- Amazon Cognito
+- Amazon Polly
+- AWS Amplify
 
-* Connect and get acquainted with members of First Cloud AI Journey.
-* Understand basic AWS services, how to use the console & CLI.
+In addition to studying the theoretical concepts, I developed a **Text-to-Speech** application powered by **Amazon Polly**. The project was implemented using a **Serverless architecture**, with **Amazon Cognito** handling user authentication, **AWS Lambda** processing business logic, **Amazon API Gateway** exposing REST APIs, and **AWS Amplify** hosting the frontend application.
 
-### Tasks to be carried out this week:
-| Day | Task                                                                                                                                                                                                   | Start Date | Completion Date | Reference Material                        |
-| --- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ---------- | --------------- | ----------------------------------------- |
-| 2   | - Get acquainted with FCAJ members <br> - Read and take note of internship unit rules and regulations                                                                                                   | 08/11/2025 | 08/11/2025      |
-| 3   | - Learn about AWS and its types of services <br>&emsp; + Compute <br>&emsp; + Storage <br>&emsp; + Networking <br>&emsp; + Database <br>&emsp; + ... <br>                                              | 08/12/2025 | 08/12/2025      | <https://cloudjourney.awsstudygroup.com/> |
-| 4   | - Create AWS Free Tier account <br> - Learn about AWS Console & AWS CLI <br> - **Practice:** <br>&emsp; + Create AWS account <br>&emsp; + Install & configure AWS CLI <br> &emsp; + How to use AWS CLI | 08/13/2025 | 08/13/2025      | <https://cloudjourney.awsstudygroup.com/> |
-| 5   | - Learn basic EC2: <br>&emsp; + Instance types <br>&emsp; + AMI <br>&emsp; + EBS <br>&emsp; + ... <br> - SSH connection methods to EC2 <br> - Learn about Elastic IP   <br>                            | 08/14/2025 | 08/15/2025      | <https://cloudjourney.awsstudygroup.com/> |
-| 6   | - **Practice:** <br>&emsp; + Launch an EC2 instance <br>&emsp; + Connect via SSH <br>&emsp; + Attach an EBS volume                                                                                     | 08/15/2025 | 08/15/2025      | <https://cloudjourney.awsstudygroup.com/> |
+All internship activities were organized into weekly milestones to ensure a systematic learning process and steady project development. The detailed work completed during each week is presented in the following sections.
 
+---
 
-### Week 1 Achievements:
+## Internship Plan
 
-* Understood what AWS is and mastered the basic service groups: 
-  * Compute
-  * Storage
-  * Networking 
-  * Database
-  * ...
-
-* Successfully created and configured an AWS Free Tier account.
-
-* Became familiar with the AWS Management Console and learned how to find, access, and use services via the web interface.
-
-* Installed and configured AWS CLI on the computer, including:
-  * Access Key
-  * Secret Key
-  * Default Region
-  * ...
-
-* Used AWS CLI to perform basic operations such as:
-
-  * Check account & configuration information
-  * Retrieve the list of regions
-  * View EC2 service
-  * Create and manage key pairs
-  * Check information about running services
-  * ...
-
-* Acquired the ability to connect between the web interface and CLI to manage AWS resources in parallel.
-* ...
+| Week | Main Activities |
+|-----:|-----------------|
+| 1 | Introduction to AWS Cloud, IAM, and the AWS Management Console |
+| 2 | Learning Amazon EC2, Amazon S3, and deploying a basic virtual server |
+| 3 | Designing network architecture with Amazon VPC |
+| 4 | Building a Serverless backend using AWS Lambda and Amazon API Gateway |
+| 5 | Implementing user authentication with Amazon Cognito |
+| 6 | Exploring Amazon Polly and developing the Text-to-Speech functionality |
+| 7 | Integrating AWS services and deploying the application with AWS Amplify |
+| 8 | Testing, optimizing, finalizing the project, and completing the internship report |
