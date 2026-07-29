@@ -6,15 +6,13 @@ weight = 7
   collapsibleMenu = true
 +++
 
-# Tuần 7 - Tích hợp hệ thống và triển khai ứng dụng
-
 ## Mục tiêu
 
 Trong tuần thứ bảy, tôi hoàn thiện giao diện người dùng, tích hợp toàn bộ các thành phần của hệ thống và triển khai ứng dụng lên môi trường Cloud. Mục tiêu là đảm bảo Frontend, Backend và các dịch vụ AWS hoạt động đồng bộ, đồng thời đưa ứng dụng vào trạng thái sẵn sàng sử dụng.
 
 ---
 
-# 7.1 Hoàn thiện giao diện người dùng
+## 7.1 Hoàn thiện giao diện người dùng
 
 Sau khi các chức năng Backend đã hoàn thành, tôi tiếp tục phát triển giao diện người dùng bằng React.
 
@@ -28,11 +26,9 @@ Các giao diện được xây dựng gồm:
 
 Bên cạnh đó, tôi cải thiện bố cục giao diện nhằm giúp người dùng thao tác dễ dàng hơn.
 
-> **Chèn hình:** Giao diện tổng quan của ứng dụng.
-
 ---
 
-# 7.2 Hoàn thiện chức năng Text-to-Speech
+## 7.2 Hoàn thiện chức năng Text-to-Speech
 
 Tiếp theo, tôi hoàn thiện giao diện cho chức năng chuyển văn bản thành giọng nói.
 
@@ -47,11 +43,11 @@ Các chức năng được bổ sung gồm:
 
 Ngoài ra, tôi bổ sung các thông báo lỗi và trạng thái xử lý nhằm cải thiện trải nghiệm người dùng.
 
-> **Chèn hình:** Giao diện Text-to-Speech.
+![Mô tả ảnh](https://super-chickens-aws.github.io/dinhhhiuu/images/worklog50.png)
 
 ---
 
-# 7.3 Kết nối Frontend với Backend
+## 7.3 Kết nối Frontend với Backend
 
 Sau khi giao diện hoàn thành, tôi tiến hành kết nối React với Backend Serverless.
 
@@ -64,11 +60,9 @@ Các công việc thực hiện gồm:
 
 Sau khi hoàn tất, toàn bộ chức năng Text-to-Speech có thể hoạt động trực tiếp từ giao diện Web.
 
-> **Chèn hình:** Frontend gọi API Gateway.
-
 ---
 
-# 7.4 Tích hợp Amazon Cognito
+## 7.4 Tích hợp Amazon Cognito
 
 Tiếp theo, tôi tích hợp hệ thống xác thực người dùng vào giao diện.
 
@@ -82,11 +76,9 @@ Các chức năng được triển khai:
 
 Sau khi người dùng đăng nhập thành công, Access Token được sử dụng để gọi các API yêu cầu xác thực.
 
-> **Chèn hình:** Đăng nhập thành công.
-
 ---
 
-# 7.5 Gọi API có xác thực
+## 7.5 Gọi API có xác thực
 
 Sau khi Cognito hoạt động ổn định, tôi bổ sung Access Token vào Header của các HTTP Request.
 
@@ -100,11 +92,9 @@ Amazon API Gateway sử dụng JWT Authorizer để kiểm tra Access Token trư
 
 Qua nội dung này, tôi hoàn thiện cơ chế bảo vệ API của hệ thống.
 
-> **Chèn hình:** JWT Authorizer hoạt động.
-
 ---
 
-# 7.6 Triển khai ứng dụng bằng AWS Amplify
+## 7.6 Triển khai ứng dụng bằng AWS Amplify
 
 Sau khi hoàn thiện toàn bộ chức năng, tôi tiến hành triển khai Frontend lên AWS Amplify.
 
@@ -119,11 +109,11 @@ Các bước thực hiện:
 
 Sau khi quá trình triển khai hoàn tất, AWS Amplify tự động cung cấp một địa chỉ để truy cập ứng dụng thông qua Internet.
 
-> **Chèn hình:** AWS Amplify Deploy.
+![Mô tả ảnh](https://super-chickens-aws.github.io/dinhhhiuu/images/worklog51.png)
 
 ---
 
-# 7.7 Cấu hình Environment Variables
+## 7.7 Cấu hình Environment Variables
 
 Để Frontend có thể kết nối với Backend, tôi cấu hình các biến môi trường trên AWS Amplify.
 
@@ -136,11 +126,11 @@ Các biến được sử dụng gồm:
 
 Việc quản lý thông tin thông qua Environment Variables giúp dễ dàng thay đổi cấu hình giữa các môi trường phát triển và triển khai mà không cần chỉnh sửa trực tiếp mã nguồn.
 
-> **Chèn hình:** Environment Variables.
+![Mô tả ảnh](https://super-chickens-aws.github.io/dinhhhiuu/images/worklog52.png)
 
 ---
 
-# 7.8 Kiểm thử toàn bộ hệ thống
+## 7.8 Kiểm thử toàn bộ hệ thống
 
 Sau khi triển khai thành công, tôi tiến hành kiểm thử toàn bộ ứng dụng.
 
@@ -157,11 +147,9 @@ Các nội dung kiểm thử gồm:
 
 Kết quả cho thấy các chức năng chính đều hoạt động đúng theo thiết kế.
 
-> **Chèn hình:** Kết quả kiểm thử.
-
 ---
 
-# 7.9 Tự động triển khai từ GitHub
+## 7.9 Tự động triển khai từ GitHub
 
 Ngoài việc triển khai lần đầu, tôi tìm hiểu cơ chế Continuous Deployment của AWS Amplify.
 
@@ -173,11 +161,9 @@ Mỗi khi mã nguồn được cập nhật lên nhánh GitHub đã cấu hình:
 
 Nhờ đó, quá trình cập nhật ứng dụng trở nên nhanh chóng và giảm thao tác thủ công.
 
-> **Chèn hình:** Quy trình CI/CD của AWS Amplify.
-
 ---
 
-# 7.10 Khó khăn gặp phải
+## 7.10 Khó khăn gặp phải
 
 Trong quá trình tích hợp và triển khai, tôi gặp một số khó khăn khi kết nối Frontend với Backend do cấu hình URL của API Gateway và các biến môi trường cần được thiết lập chính xác.
 
@@ -185,7 +171,7 @@ Ngoài ra, việc đồng bộ cấu hình giữa Amazon Cognito, API Gateway v�
 
 ---
 
-# 7.11 Cách giải quyết
+## 7.11 Cách giải quyết
 
 Để khắc phục các vấn đề trên, tôi kiểm tra lại cấu hình Environment Variables, xác nhận địa chỉ Endpoint của API Gateway và thực hiện triển khai lại ứng dụng sau mỗi lần thay đổi.
 
@@ -193,7 +179,7 @@ Bên cạnh đó, tôi kiểm thử toàn bộ quy trình từ đăng nhập đ�
 
 ---
 
-# 7.12 Kiến thức đạt được
+## 7.12 Kiến thức đạt được
 
 Sau tuần thứ bảy, tôi đã:
 
@@ -207,7 +193,7 @@ Sau tuần thứ bảy, tôi đã:
 
 ---
 
-# 7.13 Đánh giá của bản thân
+## 7.13 Đánh giá của bản thân
 
 Tuần thứ bảy là giai đoạn hoàn thiện và tích hợp toàn bộ hệ thống. Việc kết nối thành công Frontend với Backend, đồng thời triển khai ứng dụng lên AWS Amplify giúp tôi hiểu rõ hơn quy trình đưa một ứng dụng Web từ môi trường phát triển lên môi trường thực tế.
 
