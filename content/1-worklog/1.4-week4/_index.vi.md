@@ -6,35 +6,42 @@ weight = 4
   collapsibleMenu = true
 +++
 
-# Tuần 4 - Xây dựng Backend Serverless
-
 ## Mục tiêu
 
 Trong tuần thứ tư, tôi bắt đầu xây dựng phần Backend cho dự án theo kiến trúc Serverless trên nền tảng AWS. Mục tiêu là tìm hiểu mô hình Serverless, triển khai các hàm AWS Lambda, xây dựng HTTP API bằng Amazon API Gateway và tạo nền tảng để các dịch vụ phía Frontend có thể giao tiếp với hệ thống.
 
 ---
 
-# 4.1 Tìm hiểu kiến trúc Serverless
+## 4.1 Tìm hiểu kiến trúc Serverless
 
-Trước khi bắt đầu phát triển Backend, tôi tìm hiểu mô hình Serverless.
+Trước khi bắt đầu phát triển Backend, tôi tìm hiểu mô hình **Serverless**.
 
-Serverless là mô hình điện toán cho phép nhà phát triển chỉ tập trung vào việc xây dựng chức năng của ứng dụng mà không cần quản lý máy chủ.
+Serverless là mô hình điện toán đám mây cho phép nhà phát triển tập trung xây dựng và triển khai chức năng của ứng dụng mà không cần quản lý máy chủ hay hạ tầng phía dưới. Việc cấp phát tài nguyên, mở rộng hệ thống và bảo trì máy chủ sẽ do nhà cung cấp dịch vụ Cloud đảm nhiệm.
 
-Trong mô hình này:
+Trong mô hình Serverless:
 
-- AWS chịu trách nhiệm quản lý hạ tầng.
-- Tài nguyên được cấp phát tự động khi có yêu cầu.
-- Chỉ tính phí theo số lần thực thi và thời gian xử lý.
+- AWS chịu trách nhiệm quản lý hạ tầng và máy chủ.
+- Tài nguyên được tự động cấp phát khi có yêu cầu.
+- Hệ thống có khả năng tự động mở rộng theo số lượng yêu cầu.
+- Người dùng chỉ trả phí theo số lần thực thi và thời gian xử lý của hàm.
 
-Tôi cũng tìm hiểu sự khác nhau giữa mô hình truyền thống sử dụng máy chủ và kiến trúc Serverless.
+Để hiểu rõ hơn về mô hình này, tôi so sánh kiến trúc triển khai ứng dụng truyền thống với kiến trúc Serverless.
 
-Qua nội dung này, tôi hiểu được lý do AWS Lambda phù hợp với các ứng dụng có quy mô nhỏ và trung bình, đồng thời giúp giảm chi phí vận hành.
+| Tiêu chí | Mô hình truyền thống (Traditional Server) | Mô hình Serverless |
+|----------|--------------------------------------------|--------------------|
+| Quản lý máy chủ | Người phát triển hoặc quản trị viên tự quản lý máy chủ | AWS quản lý toàn bộ hạ tầng |
+| Triển khai ứng dụng | Cài đặt và cấu hình trên máy chủ | Chỉ cần triển khai mã nguồn của hàm |
+| Khả năng mở rộng | Mở rộng thủ công hoặc cấu hình riêng | Tự động mở rộng theo lưu lượng truy cập |
+| Chi phí | Trả phí theo thời gian máy chủ hoạt động | Trả phí theo số lần thực thi và thời gian xử lý |
+| Bảo trì hệ thống | Tự cập nhật hệ điều hành, vá lỗi và bảo trì | AWS tự động thực hiện |
+| Thời gian triển khai | Lâu hơn do cần chuẩn bị máy chủ | Nhanh, chỉ cần triển khai hàm |
+| Phù hợp với | Hệ thống cần kiểm soát toàn bộ máy chủ hoặc chạy liên tục | API, Microservices, xử lý sự kiện, ứng dụng có lưu lượng thay đổi |
 
-> **Chèn hình:** So sánh Traditional Server và Serverless.
+Qua nội dung này, tôi nhận thấy kiến trúc Serverless giúp giảm đáng kể khối lượng công việc liên quan đến quản lý hạ tầng, đồng thời tối ưu chi phí đối với các ứng dụng có lưu lượng truy cập không ổn định. Đây cũng là lý do tôi lựa chọn **AWS Lambda** để xây dựng Backend cho dự án trong quá trình thực tập.
 
 ---
 
-# 4.2 Thiết kế kiến trúc Backend
+## 4.2 Thiết kế kiến trúc Backend
 
 Trước khi viết mã nguồn, tôi tiến hành thiết kế kiến trúc tổng thể của Backend.
 
@@ -62,17 +69,13 @@ Business Logic
 
 Kiến trúc này giúp Frontend chỉ cần gọi HTTP API mà không cần biết cách Backend được triển khai.
 
-> **Chèn hình:** Kiến trúc Backend Serverless.
-
 ---
 
-# 4.3 Tạo AWS Lambda
+## 4.3 Tạo AWS Lambda
 
 Sau khi hoàn thiện thiết kế, tôi bắt đầu tạo hàm Lambda đầu tiên.
 
-Các bước thực hiện:
-
-Lambda → Create Function
+Các bước thực hiện: **Lambda → Create Function**
 
 Sau đó cấu hình:
 
@@ -83,11 +86,11 @@ Sau đó cấu hình:
 
 Sau khi tạo thành công, AWS cung cấp giao diện để chỉnh sửa mã nguồn và triển khai trực tiếp.
 
-> **Chèn hình:** Create Lambda Function.
+![Mô tả ảnh](https://super-chickens-aws.github.io/dinhhhiuu/images/worklog37.png)
 
 ---
 
-# 4.4 Cấu hình IAM Role cho Lambda
+## 4.4 Cấu hình IAM Role cho Lambda
 
 Để Lambda có thể truy cập các dịch vụ AWS, tôi tiến hành cấu hình IAM Role.
 
@@ -102,37 +105,63 @@ Trong quá trình thực hành, tôi tìm hiểu:
 Ví dụ:
 
 - CloudWatch Logs
-- Amazon Polly (sử dụng ở các tuần sau)
+- Amazon Polly 
+
+Thêm quyền mới: **Role name → Add permissions → Attach Policies / Create inline policy**
 
 Qua nội dung này, tôi hiểu rằng Lambda không sử dụng Access Key mà sử dụng IAM Role để xác thực với các dịch vụ AWS.
 
-> **Chèn hình:** IAM Role của Lambda.
+![Mô tả ảnh](https://super-chickens-aws.github.io/dinhhhiuu/images/worklog38.png)
 
 ---
 
-# 4.5 Viết mã nguồn Lambda
+## 4.5 Viết mã nguồn Lambda
 
-Sau khi tạo Lambda, tôi bắt đầu xây dựng mã nguồn xử lý.
+Sau khi tạo thành công hàm Lambda, tôi tiến hành xây dựng mã nguồn xử lý đầu tiên nhằm làm quen với cách Lambda nhận yêu cầu và trả kết quả.
 
-Các nội dung thực hiện gồm:
+Trong giai đoạn này, tôi xây dựng một hàm đơn giản có chức năng trả về thông điệp **"Hello from Lambda"**. Đây là bước kiểm thử cơ bản để xác nhận Lambda có thể thực thi thành công trước khi phát triển các chức năng phức tạp hơn.
 
-- Nhận dữ liệu từ API Gateway.
-- Xử lý dữ liệu đầu vào.
-- Trả kết quả theo định dạng JSON.
-- Xử lý ngoại lệ khi có lỗi xảy ra.
+Mã nguồn sử dụng:
 
-Ví dụ kết quả trả về:
+```javascript
+export const handler = async (event) => {
+    return {
+        statusCode: 200,
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            message: "Hello from Lambda"
+        })
+    };
+};
+```
+
+### Giải thích mã nguồn
+
+Đoạn chương trình trên gồm các thành phần chính:
+
+| Thành phần | Chức năng |
+|------------|-----------|
+| `handler` | Hàm được AWS Lambda gọi khi có yêu cầu thực thi |
+| `event` | Chứa dữ liệu gửi từ API Gateway hoặc dịch vụ AWS khác |
+| `statusCode` | Mã trạng thái HTTP trả về cho Client |
+| `headers` | Khai báo thông tin của dữ liệu trả về |
+| `body` | Nội dung phản hồi, được chuyển thành chuỗi JSON |
+
+Khi thực thi thành công, Lambda sẽ trả về kết quả:
 
 ```json
 {
   "statusCode": 200,
-  "body": "Hello from Lambda"
+  "headers": {
+    "Content-Type": "application/json"
+  },
+  "body": "{\"message\":\"Hello from Lambda\"}"
 }
 ```
 
-Thông qua quá trình này, tôi hiểu được cấu trúc cơ bản của một hàm Lambda và cách Lambda giao tiếp với API Gateway.
-
-> **Chèn hình:** Mã nguồn Lambda.
+Thông qua ví dụ này, tôi hiểu được cấu trúc cơ bản của một hàm AWS Lambda, cách Lambda trả dữ liệu theo chuẩn HTTP Response và cách API Gateway có thể nhận kết quả để gửi về cho ứng dụng Frontend.
 
 ---
 
@@ -148,33 +177,66 @@ Các bước thực hiện:
 
 Sau khi triển khai thành công, hàm Lambda sẵn sàng để nhận yêu cầu từ API Gateway.
 
-> **Chèn hình:** Deploy Lambda.
+![Mô tả ảnh](https://super-chickens-aws.github.io/dinhhhiuu/images/worklog39.png)
 
 ---
 
-# 4.7 Kiểm thử Lambda
+## 4.7 Kiểm thử Lambda
 
-Để kiểm tra hoạt động của Lambda, tôi sử dụng chức năng Test.
+Sau khi hoàn thành mã nguồn, tôi tiến hành kiểm thử hàm Lambda bằng chức năng **Test** được tích hợp sẵn trên AWS Management Console.
 
 Các bước thực hiện:
 
-- Tạo Test Event.
-- Nhập dữ liệu mẫu.
-- Thực hiện Test.
+1. Mở trang chi tiết của hàm **AWS Lambda**.
+2. Nhấn nút **Test** ở góc trên bên phải.
+3. Lần đầu sử dụng, AWS yêu cầu tạo một **Test Event**.
+4. Nhập tên cho Test Event (ví dụ: `test-event`).
+5. Giữ nguyên dữ liệu mẫu mà AWS cung cấp.
+6. Nhấn **Save**.
+7. Tiếp tục nhấn **Test** để thực thi hàm.
 
-Sau khi chạy thành công, AWS hiển thị:
-
-- Response
-- Execution Time
-- Log Output
-
-Thông qua CloudWatch Logs, tôi có thể kiểm tra chi tiết quá trình thực thi của Lambda.
-
-> **Chèn hình:** Test Lambda.
+![Mô tả ảnh](https://super-chickens-aws.github.io/dinhhhiuu/images/worklog40.png)
 
 ---
 
-# 4.8 Tìm hiểu Amazon API Gateway
+### Kết quả thực thi
+
+Sau khi kiểm thử thành công, AWS hiển thị các thông tin như:
+
+- **Status:** Trạng thái thực thi (Succeeded hoặc Failed).
+- **Response:** Kết quả trả về từ hàm Lambda.
+- **Execution duration:** Thời gian thực thi.
+- **Memory used:** Dung lượng bộ nhớ đã sử dụng.
+
+Ví dụ kết quả:
+
+```json
+{
+  "statusCode": 200,
+  "headers": {
+    "Content-Type": "application/json"
+  },
+  "body": "{\"message\":\"Hello from Lambda\"}"
+}
+```
+
+Nếu hàm thực thi thành công, trạng thái sẽ hiển thị **Succeeded** và nội dung trả về đúng như đã lập trình.
+
+![Mô tả ảnh](https://super-chickens-aws.github.io/dinhhhiuu/images/worklog41.png)
+
+---
+
+### Kiểm tra Log thực thi
+
+Sau mỗi lần chạy, AWS Lambda sẽ tự động ghi lại nhật ký thực thi (**Log**) vào **Amazon CloudWatch Logs**.
+
+Nhờ đó, tôi có thể theo dõi quá trình thực thi của hàm, kiểm tra lỗi nếu có và hỗ trợ quá trình gỡ lỗi trong quá trình phát triển.
+
+Thông qua việc kiểm thử trực tiếp trên AWS Console, tôi xác nhận hàm Lambda đã hoạt động đúng và sẵn sàng kết nối với Amazon API Gateway trong các bước tiếp theo.
+
+---
+
+## 4.8 Tìm hiểu Amazon API Gateway
 
 Sau khi Lambda hoạt động ổn định, tôi tiếp tục tìm hiểu Amazon API Gateway.
 
@@ -189,21 +251,15 @@ Trong quá trình học, tôi tìm hiểu:
 
 Qua đó, tôi hiểu được vai trò của API Gateway trong kiến trúc Serverless.
 
-> **Chèn hình:** Amazon API Gateway.
-
 ---
 
-# 4.9 Tạo HTTP API
+## 4.9 Tạo HTTP API
 
 Tôi tiến hành tạo HTTP API.
 
-Các bước thực hiện:
+Các bước thực hiện: **API Gateway → Create API**
 
-API Gateway → Create API
-
-Chọn:
-
-- HTTP API
+Chọn: **HTTP API**
 
 Sau đó thực hiện:
 
@@ -213,11 +269,11 @@ Sau đó thực hiện:
 
 Sau khi hoàn thành, API Gateway sinh ra Endpoint để Frontend có thể truy cập.
 
-> **Chèn hình:** Create HTTP API.
+![Mô tả ảnh](https://super-chickens-aws.github.io/dinhhhiuu/images/worklog42.png)
 
 ---
 
-# 4.10 Tạo Route
+## 4.10 Tạo Route
 
 Tiếp theo, tôi tạo các Route cho hệ thống.
 
@@ -231,11 +287,11 @@ Mỗi Route được liên kết với một Lambda Function tương ứng.
 
 Điều này giúp hệ thống dễ mở rộng khi số lượng API tăng lên.
 
-> **Chèn hình:** Routes.
+![Mô tả ảnh](https://super-chickens-aws.github.io/dinhhhiuu/images/worklog43.png)
 
 ---
 
-# 4.11 Liên kết API Gateway với Lambda
+## 4.11 Liên kết API Gateway với Lambda
 
 Sau khi tạo Route, tôi cấu hình Integration giữa API Gateway và Lambda.
 
@@ -248,7 +304,7 @@ Quá trình này giúp:
 
 Đây là bước hoàn thiện luồng xử lý của Backend.
 
-> **Chèn hình:** Lambda Integration.
+![Mô tả ảnh](https://super-chickens-aws.github.io/dinhhhiuu/images/worklog44.png)
 
 ---
 
@@ -271,11 +327,11 @@ Tôi kiểm tra:
 
 Sau khi kiểm thử, các API đều hoạt động đúng theo thiết kế.
 
-> **Chèn hình:** Kết quả kiểm thử API.
+![Mô tả ảnh](https://super-chickens-aws.github.io/dinhhhiuu/images/worklog45.png)
 
 ---
 
-# 4.13 Khó khăn gặp phải
+## 4.13 Khó khăn gặp phải
 
 Trong quá trình xây dựng Backend, tôi gặp một số khó khăn khi làm quen với mô hình Serverless, đặc biệt là cách Lambda nhận dữ liệu từ API Gateway và cách trả về kết quả theo đúng định dạng yêu cầu.
 
@@ -283,7 +339,7 @@ Ngoài ra, việc cấu hình IAM Role và liên kết Lambda với API Gateway 
 
 ---
 
-# 4.14 Cách giải quyết
+## 4.14 Cách giải quyết
 
 Để giải quyết các vấn đề trên, tôi tham khảo tài liệu chính thức của AWS, đọc log trên CloudWatch để xác định nguyên nhân lỗi và thực hiện kiểm thử sau mỗi lần thay đổi cấu hình.
 
@@ -291,7 +347,7 @@ Bên cạnh đó, tôi xây dựng từng API nhỏ trước khi mở rộng th�
 
 ---
 
-# 4.15 Kiến thức đạt được
+## 4.15 Kiến thức đạt được
 
 Sau tuần thứ tư, tôi đã:
 
@@ -305,7 +361,7 @@ Sau tuần thứ tư, tôi đã:
 
 ---
 
-# 4.16 Đánh giá của bản thân
+## 4.16 Đánh giá của bản thân
 
 Tuần thứ tư đánh dấu bước chuyển từ việc học các dịch vụ AWS sang xây dựng Backend thực tế cho dự án. Việc trực tiếp triển khai AWS Lambda và Amazon API Gateway giúp tôi hiểu rõ hơn cách xây dựng một hệ thống Serverless và cách các thành phần trong kiến trúc phối hợp với nhau.
 
