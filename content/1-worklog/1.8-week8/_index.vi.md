@@ -6,15 +6,13 @@ weight = 8
   collapsibleMenu = true
 +++
 
-# Tuần 8 - Hoàn thiện dự án và tổng kết
-
 ## Mục tiêu
 
-Trong tuần cuối cùng của kỳ thực tập, tôi tập trung hoàn thiện sản phẩm, kiểm thử toàn bộ hệ thống, tối ưu mã nguồn và tài liệu kỹ thuật, đồng thời chuẩn bị báo cáo và sản phẩm demo phục vụ buổi đánh giá kết quả thực tập.
+Trong tuần cuối cùng của kỳ thực tập, tôi tập trung hoàn thiện sản phẩm, kiểm thử toàn bộ hệ thống, tối ưu mã nguồn và tài liệu kỹ thuật, đồng thời chuẩn bị báo cáo và sản phẩm demo cho đánh giá kết quả thực tập.
 
 ---
 
-# 8.1 Rà soát toàn bộ hệ thống
+## 8.1 Rà soát toàn bộ hệ thống
 
 Sau khi các chức năng chính đã hoàn thành, tôi tiến hành rà soát lại toàn bộ dự án nhằm đảm bảo hệ thống hoạt động ổn định trước khi bàn giao.
 
@@ -29,11 +27,9 @@ Các nội dung kiểm tra gồm:
 
 Thông qua quá trình này, tôi phát hiện và xử lý một số lỗi nhỏ còn tồn tại trong quá trình phát triển.
 
-> **Chèn hình:** Kiến trúc tổng thể của hệ thống.
-
 ---
 
-# 8.2 Kiểm thử chức năng
+## 8.2 Kiểm thử chức năng
 
 Tiếp theo, tôi thực hiện kiểm thử toàn bộ các chức năng của ứng dụng.
 
@@ -63,11 +59,9 @@ Các nội dung kiểm thử bao gồm:
 
 Kết quả cho thấy các chức năng đều hoạt động đúng theo thiết kế.
 
-> **Chèn hình:** Kết quả kiểm thử.
-
 ---
 
-# 8.3 Tối ưu hệ thống
+## 8.3 Tối ưu hệ thống
 
 Sau khi kiểm thử, tôi tiến hành tối ưu hệ thống.
 
@@ -84,7 +78,7 @@ Việc tối ưu giúp mã nguồn rõ ràng hơn và thuận tiện cho việc 
 
 ---
 
-# 8.4 Hoàn thiện giao diện người dùng
+## 8.4 Hoàn thiện giao diện người dùng
 
 Tiếp theo, tôi chỉnh sửa và hoàn thiện giao diện của ứng dụng.
 
@@ -98,11 +92,9 @@ Các nội dung thực hiện:
 
 Sau khi hoàn thiện, giao diện trở nên trực quan và dễ sử dụng hơn.
 
-> **Chèn hình:** Giao diện hoàn chỉnh của ứng dụng.
-
 ---
 
-# 8.5 Hoàn thiện tài liệu kỹ thuật
+## 8.5 Hoàn thiện tài liệu kỹ thuật
 
 Song song với việc hoàn thiện sản phẩm, tôi xây dựng và cập nhật tài liệu kỹ thuật.
 
@@ -118,11 +110,9 @@ Các tài liệu được bổ sung gồm:
 
 Việc xây dựng tài liệu giúp người khác có thể dễ dàng triển khai và sử dụng hệ thống.
 
-> **Chèn hình:** Tài liệu hướng dẫn.
-
 ---
 
-# 8.6 Hoàn thiện sơ đồ kiến trúc hệ thống
+## 8.6 Hoàn thiện sơ đồ kiến trúc hệ thống
 
 Để phục vụ báo cáo và quá trình bàn giao, tôi tổng hợp và hoàn thiện sơ đồ kiến trúc của hệ thống.
 
@@ -137,11 +127,11 @@ Kiến trúc bao gồm các thành phần:
 
 Sơ đồ thể hiện luồng xử lý từ người dùng đến các dịch vụ AWS và ngược lại.
 
-> **Chèn hình:** Sơ đồ kiến trúc AWS.
+![Mô tả ảnh](https://super-chickens-aws.github.io/dinhhhiuu/images/worklog53.png)
 
 ---
 
-# 8.7 Chuẩn bị báo cáo và sản phẩm demo
+## 8.7 Chuẩn bị báo cáo và sản phẩm demo
 
 Sau khi sản phẩm hoàn thiện, tôi tiến hành chuẩn bị cho buổi đánh giá cuối kỳ.
 
@@ -157,7 +147,7 @@ Qua quá trình này, tôi có cái nhìn tổng quan hơn về toàn bộ dự 
 
 ---
 
-# 8.8 Khó khăn gặp phải
+## 8.8 Khó khăn gặp phải
 
 Trong giai đoạn hoàn thiện, tôi gặp một số khó khăn khi rà soát lại toàn bộ hệ thống do ứng dụng đã tích hợp nhiều dịch vụ AWS khác nhau.
 
@@ -165,7 +155,7 @@ Ngoài ra, việc đảm bảo các chức năng hoạt động ổn định sau
 
 ---
 
-# 8.9 Cách giải quyết
+## 8.9 Cách giải quyết
 
 Để khắc phục các vấn đề trên, tôi xây dựng danh sách các chức năng cần kiểm thử và thực hiện kiểm tra theo từng nhóm chức năng.
 
@@ -173,7 +163,7 @@ Bên cạnh đó, tôi rà soát lại toàn bộ cấu hình của các dịch 
 
 ---
 
-# 8.10 Kiến thức đạt được
+## 8.10 Kiến thức đạt được
 
 Sau tuần thứ tám, tôi đã:
 
@@ -186,7 +176,7 @@ Sau tuần thứ tám, tôi đã:
 
 ---
 
-# 8.11 Kết quả đạt được
+## 8.11 Kết quả đạt được
 
 Sau tám tuần thực tập, tôi đã hoàn thành ứng dụng Web chuyển văn bản thành giọng nói (Text-to-Speech) được xây dựng theo kiến trúc Serverless trên nền tảng Amazon Web Services.
 
@@ -202,7 +192,7 @@ Hệ thống bao gồm các thành phần chính:
 
 ---
 
-# 8.12 Đánh giá của bản thân
+## 8.12 Đánh giá của bản thân
 
 Kỳ thực tập kéo dài tám tuần đã giúp tôi có cơ hội tiếp cận quy trình phát triển một ứng dụng Cloud trên nền tảng Amazon Web Services từ giai đoạn tìm hiểu kiến thức nền tảng đến thiết kế, triển khai, kiểm thử và hoàn thiện sản phẩm.
 
