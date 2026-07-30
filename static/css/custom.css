@@ -1,0 +1,4 @@
+/* Ẩn toàn bộ mũi tên mở menu */
+#R-sidebar label i.fa-chevron-right {
+    display: none !important;
+}
