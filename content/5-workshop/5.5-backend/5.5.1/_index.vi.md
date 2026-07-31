@@ -44,7 +44,8 @@ Cấu hình như sau:
 
 Các thiết lập còn lại giữ mặc định và nhấn **Create table**.
 
-> **Screenshot:** Create SpeechHistory Table
+![Mô tả ảnh](https://super-chickens-aws.github.io/dinhhhiuu/images/prj20.png)
+
 
 ---
 

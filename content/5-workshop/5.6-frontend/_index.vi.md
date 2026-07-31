@@ -1,12 +1,18 @@
 +++
 title = '5.6 Xây dựng Frontend'
-weight = 5
+weight = 6
 
 [params]
   collapsibleMenu = true
 +++
 
 ## Đưa website lên Internet
+
+Clone mã nguồn tại đây và tạo repo mới:
+
+**GitHub Repository**
+
+https://github.com/super-chickens-aws/polly-voice
 
 Truy cập **AWS Amplify** → **Deploy an app**.
 
@@ -32,9 +38,7 @@ Sau khi hoàn tất, nhấn **Save and deploy** để bắt đầu triển khai 
 
 ## Thêm biến môi trường
 
-Truy cập:
-
-**AWS Amplify** → **Environment Variables** → **Manage variables**
+Truy cập: **AWS Amplify** → **Environment Variables** → **Manage variables**
 
 Thêm các biến môi trường cần thiết.
 

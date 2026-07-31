@@ -10,11 +10,11 @@ weight = 3
 
 Truy cập: **AWS Lambda** → **Functions** → **Create function**
 
-Thiết lập:
+Thiết lập các thông tin sau:
 
-- Function name
-- Runtime
-- Execution Role
+- **Function name**
+- **Runtime**
+- **Execution Role**
 
 ![Mô tả ảnh](https://super-chickens-aws.github.io/dinhhhiuu/images/worklog37.png)
 
@@ -24,11 +24,11 @@ Sau đó nhấn **Create function**.
 
 ## Cấp quyền cho Lambda
 
-Mở Lambda vừa tạo.
+Mở Lambda vừa tạo và truy cập:
 
-Truy cập: **Configuration** → **Permissions**
+**Configuration** → **Permissions**
 
-Chọn **Execution Role**.
+Chọn **Execution Role** để mở IAM Role của Lambda.
 
 Trong IAM, cấp các quyền cần thiết để Lambda có thể làm việc với các dịch vụ AWS.
 
@@ -42,6 +42,8 @@ Attach Policy: **AmazonPollyFullAccess**
 
 Attach Policy: **AmazonS3FullAccess**
 
+![Mô tả ảnh](https://super-chickens-aws.github.io/dinhhhiuu/images/prj21.png)
+
 ---
 
 ### Amazon DynamoDB
@@ -54,11 +56,19 @@ Cho phép các quyền:
 - PutItem
 - UpdateItem
 
-Đối tượng truy cập:
+![Mô tả ảnh](https://super-chickens-aws.github.io/dinhhhiuu/images/prj22.png)
 
-- Bảng `SpeechHistory`
+Chọn bảng: `SpeechHistory`
 
-![Mô tả ảnh](https://super-chickens-aws.github.io/dinhhhiuu/images/worklog38.png)
+![Mô tả ảnh](https://super-chickens-aws.github.io/dinhhhiuu/images/prj23.png)
+
+Nhấn **Next**.
+
+Đặt tên Policy: `dynamoSpeechHistory`
+
+Sau đó nhấn **Create Policy** để hoàn thành.
+
+![Mô tả ảnh](https://super-chickens-aws.github.io/dinhhhiuu/images/prj24.png)
 
 ---
 
@@ -66,17 +76,44 @@ Cho phép các quyền:
 
 Để frontend có thể tải file MP3 từ S3, cấu hình **Bucket Policy** cho Bucket.
 
-Truy cập: **S3** → **Bucket** → **Permissions** → **Bucket Policy**
+Truy cập: **Amazon S3** → **Bucket** → **\<Bucket Name\>** → **Permissions** → **Bucket Policy**
 
-Thêm Bucket Policy phù hợp.
+Dán Policy sau để cho phép tải xuống từ S3:
 
-> **Screenshot:** Bucket Policy
+```json
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "PublicRead",
+      "Effect": "Allow",
+      "Principal": "*",
+      "Action": "s3:GetObject",
+      "Resource": "arn:aws:s3:::voice-ai-media-superchicken/*"
+    }
+  ]
+}
+```
+
+![Mô tả ảnh](https://super-chickens-aws.github.io/dinhhhiuu/images/prj25.png)
 
 ---
 
 ## Triển khai mã nguồn
 
-Tải mã nguồn Lambda lên và cấu hình các thông số cần thiết.
+Tải mã nguồn Lambda tại:
+
+**GitHub Repository**
+
+https://github.com/super-chickens-aws/polly-voice/tree/main/backend
+
+Cài đặt các thư viện:
+
+```bash
+npm install
+```
+
+Sau đó nén toàn bộ mã nguồn thành một file `.zip`.
 
 Trong quá trình xử lý, Lambda sẽ:
 
@@ -90,7 +127,14 @@ Trong quá trình xử lý, Lambda sẽ:
 
 ## Deploy và Test
 
-Sau khi hoàn thành mã nguồn:
+Trong trang Lambda:
+
+- Chọn **Update**
+- Chọn **Upload from**
+- Chọn **.zip file**
+- Tải lên file `.zip` đã tạo ở bước trước
+
+Sau khi cập nhật mã nguồn:
 
 - Nhấn **Deploy**
 - Tạo **Test Event**
@@ -101,6 +145,6 @@ Sau khi hoàn thành mã nguồn:
 Nếu thực hiện thành công, Lambda sẽ:
 
 - Sinh file MP3.
-- Upload lên S3.
+- Upload lên Amazon S3.
 - Lưu dữ liệu vào DynamoDB.
 - Trả về kết quả thành công.
