@@ -3,7 +3,7 @@ title = '5.3 Kiến trúc giải pháp'
 weight = 3
 
 [params]
-  collapsibleMenu = true
+collapsibleMenu = true
 +++
 
 Trước khi triển khai các tài nguyên trên AWS, chúng ta cần hiểu kiến trúc tổng thể của ứng dụng Polly Voice và cách các dịch vụ AWS phối hợp với nhau trong toàn bộ hệ thống.
@@ -16,15 +16,20 @@ Trước khi triển khai các tài nguyên trên AWS, chúng ta cần hiểu ki
 
 Ứng dụng Polly Voice gồm ba tầng chính:
 
-- Frontend Layer
-- Backend Layer
-- Storage Layer
+* Frontend Layer
+* Backend Layer
+* Storage Layer
 
 Frontend được triển khai trên **AWS Amplify** và cung cấp giao diện cho người dùng.
 
 Backend bao gồm **Amazon API Gateway** và **AWS Lambda**, chịu trách nhiệm xử lý các yêu cầu từ người dùng và giao tiếp với các dịch vụ AWS khác.
 
-Các tệp âm thanh được tạo sẽ được lưu trữ trên **Amazon S3**, trong khi thông tin lịch sử chuyển đổi sẽ được lưu trong **Amazon DynamoDB**.
+Ứng dụng hỗ trợ hai chức năng chính:
+
+* **Text-to-Speech (TTS):** Chuyển đổi văn bản thành giọng nói bằng **Amazon Polly**.
+* **Speech-to-Text (STT):** Chuyển đổi giọng nói thành văn bản bằng **Amazon Transcribe**.
+
+Các tệp âm thanh được tạo hoặc tải lên sẽ được lưu trữ trên **Amazon S3**, trong khi lịch sử chuyển đổi của cả hai chức năng được lưu trong **Amazon DynamoDB**.
 
 Việc xác thực người dùng được thực hiện bởi **Amazon Cognito** trước khi các yêu cầu được phép truy cập vào hệ thống backend.
 
@@ -52,10 +57,10 @@ Amazon Cognito chịu trách nhiệm xác thực và quản lý người dùng.
 
 Các chức năng chính bao gồm:
 
-- Đăng ký tài khoản.
-- Đăng nhập.
-- Sinh JWT Token.
-- Quản lý phiên đăng nhập của người dùng.
+* Đăng ký tài khoản.
+* Đăng nhập.
+* Sinh JWT Token.
+* Quản lý phiên đăng nhập của người dùng.
 
 Chỉ những người dùng đã được xác thực mới có thể truy cập các API của hệ thống.
 
@@ -77,11 +82,12 @@ AWS Lambda chứa toàn bộ nghiệp vụ của ứng dụng.
 
 Sau khi nhận yêu cầu từ API Gateway, Lambda sẽ thực hiện các công việc như:
 
-- Kiểm tra dữ liệu đầu vào.
-- Gọi Amazon Polly để tổng hợp giọng nói.
-- Tải tệp âm thanh lên Amazon S3.
-- Lưu lịch sử chuyển đổi vào DynamoDB.
-- Trả kết quả về frontend.
+* Kiểm tra dữ liệu đầu vào.
+* Gọi Amazon Polly để chuyển đổi văn bản thành giọng nói.
+* Gọi Amazon Transcribe để chuyển đổi giọng nói thành văn bản.
+* Tải các tệp âm thanh lên Amazon S3.
+* Lưu lịch sử chuyển đổi vào Amazon DynamoDB.
+* Trả kết quả về frontend.
 
 Do Lambda hoạt động theo mô hình Serverless nên tài nguyên tính toán chỉ được cấp phát khi có yêu cầu.
 
@@ -97,13 +103,25 @@ Sau khi xử lý xong, Amazon Polly sẽ trả về luồng dữ liệu âm than
 
 ---
 
+### Amazon Transcribe
+
+Amazon Transcribe chuyển đổi nội dung giọng nói trong các tệp âm thanh thành văn bản.
+
+Sau khi người dùng tải lên tệp âm thanh, AWS Lambda sẽ gửi yêu cầu đến Amazon Transcribe để thực hiện quá trình nhận dạng giọng nói.
+
+Khi hoàn thành, Amazon Transcribe trả về nội dung văn bản để Lambda tiếp tục xử lý và gửi kết quả về frontend.
+
+---
+
 ### Amazon S3
 
-Amazon S3 lưu trữ toàn bộ các tệp âm thanh được tạo ra.
+Amazon S3 lưu trữ toàn bộ các tệp âm thanh của ứng dụng.
 
-Thay vì trả trực tiếp dữ liệu âm thanh cho frontend, Lambda sẽ tải tệp MP3 lên S3 rồi trả về đường dẫn của tệp.
+Đối với chức năng **Text-to-Speech**, Lambda lưu tệp MP3 được tạo bởi Amazon Polly lên S3.
 
-Cách tiếp cận này giúp việc quản lý, phát lại và tải xuống các tệp âm thanh trở nên thuận tiện hơn.
+Đối với chức năng **Speech-to-Text**, các tệp âm thanh do người dùng tải lên cũng được lưu trên S3 để Amazon Transcribe xử lý.
+
+Việc lưu trữ tập trung trên Amazon S3 giúp quản lý, phát lại và tải xuống các tệp âm thanh một cách thuận tiện.
 
 ---
 
@@ -113,11 +131,12 @@ Amazon DynamoDB lưu trữ thông tin lịch sử của mỗi lần chuyển đ�
 
 Các thông tin được lưu bao gồm:
 
-- ID người dùng.
-- Nội dung văn bản.
-- Giọng đọc đã chọn.
-- Đường dẫn tệp âm thanh.
-- Thời gian tạo.
+* ID người dùng.
+* Loại chuyển đổi (Text-to-Speech hoặc Speech-to-Text).
+* Nội dung văn bản hoặc kết quả nhận dạng.
+* Giọng đọc đã chọn (đối với TTS).
+* Đường dẫn tệp âm thanh.
+* Thời gian tạo.
 
 Việc lưu riêng dữ liệu lịch sử với tệp âm thanh giúp hệ thống dễ dàng truy vấn và quản lý hơn.
 
@@ -125,71 +144,53 @@ Việc lưu riêng dữ liệu lịch sử với tệp âm thanh giúp hệ th�
 
 ## 5.3.3 Luồng xử lý dữ liệu
 
-Quy trình xử lý một yêu cầu chuyển văn bản thành giọng nói diễn ra theo các bước sau.
+Ứng dụng hỗ trợ hai luồng xử lý chính: **Text-to-Speech (TTS)** và **Speech-to-Text (STT)**.
 
-### Bước 1
+### Luồng Text-to-Speech (TTS)
 
-Người dùng truy cập ứng dụng Polly Voice được triển khai trên AWS Amplify.
+**Bước 1** Người dùng truy cập ứng dụng Polly Voice được triển khai trên AWS Amplify.
 
----
+**Bước 2** Người dùng đăng nhập bằng Amazon Cognito. Sau khi xác thực thành công, Cognito sẽ trả về JWT Token.
 
-### Bước 2
+**Bước 3** Frontend gửi yêu cầu chuyển văn bản thành giọng nói đến Amazon API Gateway kèm theo JWT Token.
 
-Người dùng đăng nhập bằng Amazon Cognito.
+**Bước 4** API Gateway kiểm tra tính hợp lệ của JWT Token. Nếu xác thực thành công, yêu cầu sẽ được chuyển đến AWS Lambda. Nếu không hợp lệ, API sẽ từ chối yêu cầu.
 
-Sau khi xác thực thành công, Cognito sẽ trả về JWT Token.
+**Bước 5** AWS Lambda gửi nội dung văn bản đến Amazon Polly. Amazon Polly tổng hợp giọng nói và trả về luồng dữ liệu âm thanh.
 
----
+**Bước 6** Lambda lưu tệp MP3 vừa tạo lên Amazon S3.
 
-### Bước 3
+**Bước 7** Lambda lưu thông tin lịch sử chuyển đổi vào Amazon DynamoDB.
 
-Frontend gửi yêu cầu chuyển văn bản thành giọng nói đến Amazon API Gateway kèm theo JWT Token.
+**Bước 8** Lambda trả về đường dẫn tệp âm thanh cùng thông tin chuyển đổi cho frontend.
 
----
+**Bước 9** Frontend cho phép người dùng:
 
-### Bước 4
-
-API Gateway kiểm tra tính hợp lệ của JWT Token.
-
-Nếu xác thực thành công, yêu cầu sẽ được chuyển đến AWS Lambda.
-
-Nếu không hợp lệ, API sẽ từ chối yêu cầu.
+* Nghe tệp âm thanh.
+* Tải xuống tệp MP3.
+* Xem lịch sử các lần chuyển đổi trước đó.
 
 ---
 
-### Bước 5
+### Luồng Speech-to-Text (STT)
 
-AWS Lambda gửi nội dung văn bản đến Amazon Polly.
+**Bước 1** Người dùng truy cập ứng dụng Polly Voice trên AWS Amplify và đăng nhập bằng Amazon Cognito.
 
-Amazon Polly tổng hợp giọng nói và trả về luồng dữ liệu âm thanh.
+**Bước 2** Frontend gửi yêu cầu Speech-to-Text đến Amazon API Gateway kèm theo JWT Token và tệp âm thanh.
 
----
+**Bước 3** API Gateway xác thực JWT Token. Nếu hợp lệ, yêu cầu sẽ được chuyển đến AWS Lambda.
 
-### Bước 6
+**Bước 4** AWS Lambda lưu tệp âm thanh lên Amazon S3.
 
-Lambda tải tệp MP3 vừa tạo lên Amazon S3.
+**Bước 5** Lambda gửi yêu cầu đến Amazon Transcribe để thực hiện chuyển đổi giọng nói thành văn bản.
 
----
+**Bước 6** Amazon Transcribe xử lý tệp âm thanh và trả về kết quả nhận dạng.
 
-### Bước 7
+**Bước 7** Lambda lưu lịch sử chuyển đổi vào Amazon DynamoDB.
 
-Lambda lưu thông tin lịch sử chuyển đổi vào Amazon DynamoDB.
+**Bước 8** Lambda trả về nội dung văn bản đã nhận dạng cho frontend.
 
----
-
-### Bước 8
-
-Lambda trả về đường dẫn của tệp âm thanh cùng với thông tin chuyển đổi cho frontend.
-
----
-
-### Bước 9
-
-Frontend cho phép người dùng:
-
-- Nghe tệp âm thanh.
-- Tải xuống tệp MP3.
-- Xem lịch sử các lần chuyển đổi trước đó.
+**Bước 9** Frontend hiển thị kết quả nhận dạng để người dùng xem, sao chép hoặc tiếp tục sử dụng.
 
 ---
 
@@ -217,7 +218,7 @@ JWT Token giúp ngăn chặn các yêu cầu API trái phép.
 
 AWS Lambda tự động mở rộng theo số lượng yêu cầu.
 
-Amazon S3 và Amazon DynamoDB cũng có khả năng tự động mở rộng mà không cần cấu hình thủ công.
+Amazon S3, Amazon DynamoDB và Amazon Transcribe đều có khả năng mở rộng tự động mà không cần cấu hình thủ công.
 
 ---
 
@@ -231,6 +232,6 @@ Kiến trúc này rất phù hợp với các ứng dụng cloud-native có quy 
 
 ## Tổng kết
 
-Đến thời điểm này, chúng ta đã hiểu được kiến trúc tổng thể của hệ thống, vai trò của từng dịch vụ AWS cũng như toàn bộ luồng xử lý của ứng dụng.
+Đến thời điểm này, chúng ta đã hiểu được kiến trúc tổng thể của hệ thống, vai trò của từng dịch vụ AWS cũng như hai luồng xử lý chính của ứng dụng: **Text-to-Speech** sử dụng **Amazon Polly** và **Speech-to-Text** sử dụng **Amazon Transcribe**.
 
 Trong phần tiếp theo, chúng ta sẽ bắt đầu triển khai hệ thống backend bằng cách cấu hình Amazon Cognito trên AWS Management Console.

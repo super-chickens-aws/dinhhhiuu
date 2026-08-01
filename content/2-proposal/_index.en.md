@@ -3,11 +3,12 @@ title = '2. Proposal'
 weight = 2
 
 [params]
-  collapsibleMenu = true
+collapsibleMenu = true
 +++
 
 ## Polly Voice
-A Serverless Text-to-Speech Application Powered by AWS
+
+A Speech Processing Application Powered by AWS Serverless
 
 ---
 
@@ -15,43 +16,55 @@ A Serverless Text-to-Speech Application Powered by AWS
 
 ### Objective
 
-Polly Voice is a web application designed to convert text into speech using Amazon Polly. Users can log into the system, enter text, select a preferred voice, and generate high-quality audio files that can be played online or downloaded.
+Polly Voice is a web application designed to provide two speech processing capabilities:
 
-The application is built entirely on a Serverless architecture using Amazon Web Services (AWS), which minimizes operational costs, provides scalability, and eliminates the need for server management.
+* **Text-to-Speech (TTS):** Convert text into speech using **Amazon Polly**.
+* **Speech-to-Text (STT):** Convert speech into text using **Amazon Transcribe**.
+
+Users can sign in to the system, enter text to generate audio files, or upload audio files for speech recognition. The generated results can be played, downloaded, or reviewed later through the conversion history.
+
+The application is built entirely on a Serverless architecture using Amazon Web Services (AWS), reducing operational costs, enabling easy scalability, and eliminating the need to manage servers.
 
 ---
 
 ## 2. Problem Statement
 
-### Current Situation
+### Current Challenges
 
-Today, many users need Text-to-Speech (TTS) technology for learning, reading documents, content creation, or assisting visually impaired individuals. However:
+Today, many users need to convert between text and speech for learning, document reading, content creation, meeting transcription, or assisting visually impaired users. However:
 
-- Many Text-to-Speech services require paid subscriptions.
-- Some platforms do not provide comprehensive multilingual support.
-- Building a traditional TTS system requires deploying and maintaining servers, which increases both development time and operational costs.
+* Many Text-to-Speech and Speech-to-Text services require paid subscriptions.
+* Some platforms do not fully support multiple languages or voice options.
+* Building a traditional speech processing system requires deploying and maintaining servers, which increases both complexity and cost.
 
 ### Proposed Solution
 
-Polly Voice utilizes Amazon Polly to generate high-quality synthesized speech. The system follows a Serverless architecture consisting of:
+Polly Voice uses:
 
-- Amazon Cognito for user authentication and management.
-- React hosted on AWS Amplify.
-- Amazon API Gateway for handling frontend requests.
-- AWS Lambda for business logic processing.
-- Amazon Polly for speech synthesis.
-- Amazon S3 for storing generated MP3 files.
-- Amazon DynamoDB for storing conversion history.
+* **Amazon Polly** for Text-to-Speech conversion.
+* **Amazon Transcribe** for Speech-to-Text conversion.
 
-Users simply log in, enter text, choose a voice, and the system automatically generates an audio file.
+The system adopts a Serverless architecture consisting of:
+
+* Amazon Cognito for user management.
+* React running on AWS Amplify.
+* Amazon API Gateway for handling frontend requests.
+* AWS Lambda for business logic processing.
+* Amazon Polly for Text-to-Speech.
+* Amazon Transcribe for Speech-to-Text.
+* Amazon S3 for audio file storage.
+* Amazon DynamoDB for conversion history.
+
+Users simply sign in, then either enter text to generate speech or upload an audio file for transcription.
 
 ### Benefits
 
-- No server management required.
-- Low operational cost.
-- Easily scalable as the number of users increases.
-- Fast processing performance.
-- Reusable for future AI applications and educational projects.
+* No server management required.
+* Low operational cost.
+* Easy to scale as the number of users grows.
+* Fast processing performance.
+* Supports both Text-to-Speech and Speech-to-Text features.
+* Can be extended for various AI and educational applications in the future.
 
 ---
 
@@ -61,24 +74,38 @@ Users simply log in, enter text, choose a voice, and the system automatically ge
 
 ### AWS Services Used
 
-- AWS Amplify: Hosts the React frontend application.
-- Amazon Cognito: Handles user registration and authentication.
-- Amazon API Gateway: Provides REST APIs.
-- AWS Lambda: Executes backend business logic.
-- Amazon Polly: Converts text into speech.
-- Amazon S3: Stores generated audio files.
-- Amazon DynamoDB: Stores speech generation history.
+* AWS Amplify: Deploys the React frontend.
+* Amazon Cognito: Handles user registration and authentication.
+* Amazon API Gateway: Provides REST APIs.
+* AWS Lambda: Executes business logic.
+* Amazon Polly: Converts text into speech.
+* Amazon Transcribe: Converts speech into text.
+* Amazon S3: Stores audio files.
+* Amazon DynamoDB: Stores conversion history.
 
-### System Workflow
+### Workflow
 
-1. Users authenticate through Amazon Cognito.
-2. The frontend sends requests to Amazon API Gateway.
+#### Text-to-Speech Workflow
+
+1. The user signs in using Amazon Cognito.
+2. The frontend sends a request to Amazon API Gateway.
 3. API Gateway invokes AWS Lambda.
 4. Lambda calls Amazon Polly to synthesize speech.
 5. The generated MP3 file is stored in Amazon S3.
-6. Lambda records the conversion history in Amazon DynamoDB.
+6. Lambda stores the conversion history in Amazon DynamoDB.
 7. The audio file URL is returned to the frontend.
-8. Users can play or download the generated audio file.
+8. The user can play or download the audio file.
+
+#### Speech-to-Text Workflow
+
+1. The user signs in using Amazon Cognito.
+2. The frontend uploads an audio file through Amazon API Gateway.
+3. API Gateway forwards the request to AWS Lambda.
+4. Lambda uploads the audio file to Amazon S3.
+5. Lambda calls Amazon Transcribe to transcribe the audio.
+6. Amazon Transcribe returns the transcription result.
+7. Lambda stores the conversion history in Amazon DynamoDB.
+8. The transcribed text is returned to the frontend for display.
 
 ---
 
@@ -86,29 +113,32 @@ Users simply log in, enter text, choose a voice, and the system automatically ge
 
 ### Phase 1
 
-- Research Amazon Polly.
-- Learn the Serverless architecture.
-- Design the overall system.
+* Study Amazon Polly.
+* Study Amazon Transcribe.
+* Learn the Serverless architecture.
+* Design the system architecture.
 
 ### Phase 2
 
-- Develop the backend.
-- Create AWS Lambda functions.
-- Integrate Amazon API Gateway.
-- Connect with Amazon Polly.
-- Store generated audio files in Amazon S3.
+* Develop the backend.
+* Create AWS Lambda functions.
+* Integrate Amazon API Gateway.
+* Integrate Amazon Polly.
+* Integrate Amazon Transcribe.
+* Store audio files in Amazon S3.
 
 ### Phase 3
 
-- Develop the React frontend.
-- Integrate Amazon Cognito.
-- Connect the frontend with the backend.
+* Develop the React frontend.
+* Integrate Amazon Cognito.
+* Connect the frontend to the backend.
+* Complete both the Text-to-Speech and Speech-to-Text features.
 
 ### Phase 4
 
-- Perform testing.
-- Finalize the user interface.
-- Deploy the application using AWS Amplify.
+* Perform system testing.
+* Finalize the user interface.
+* Deploy the application using AWS Amplify.
 
 ---
 
@@ -118,17 +148,18 @@ The application is developed using AWS Free Tier services during the development
 
 Estimated monthly cost for a small-scale deployment:
 
-| Service | Monthly Cost |
-|----------|--------------|
-| Amazon Polly | ~0.20 USD |
-| AWS Lambda | ~0.00 USD |
-| Amazon API Gateway | ~0.01 USD |
-| Amazon S3 | ~0.05 USD |
-| Amazon DynamoDB | ~0.02 USD |
-| AWS Amplify | ~0.10 USD |
-| Amazon Cognito | ~0.00 USD |
+| Service            | Monthly Cost |
+| ------------------ | -----------: |
+| Amazon Polly       |    ~0.20 USD |
+| Amazon Transcribe  |    ~0.10 USD |
+| AWS Lambda         |    ~0.00 USD |
+| Amazon API Gateway |    ~0.01 USD |
+| Amazon S3          |    ~0.05 USD |
+| Amazon DynamoDB    |    ~0.02 USD |
+| AWS Amplify        |    ~0.10 USD |
+| Amazon Cognito     |    ~0.00 USD |
 
-**Estimated Total Cost:** approximately **0.38 USD per month**.
+**Estimated total monthly cost:** approximately **0.48 USD/month**.
 
 ---
 
@@ -136,27 +167,31 @@ Estimated monthly cost for a small-scale deployment:
 
 ### Potential Risks
 
-- Users may submit text exceeding the supported character limit.
-- Amazon Polly Free Tier limitations.
-- Excessive storage of audio files may increase Amazon S3 costs.
-- User authentication failures.
+* Users may submit text exceeding the supported limit.
+* Users may upload unsupported audio file formats.
+* AWS Free Tier limits for Amazon Polly and Amazon Transcribe may be exceeded.
+* Excessive audio storage may increase Amazon S3 costs.
+* User authentication failures.
 
-### Mitigation Strategies
+### Mitigation
 
-- Limit the number of characters per conversion request.
-- Apply the IAM Least Privilege principle.
-- Periodically delete or archive old audio files.
-- Authenticate every API request using Amazon Cognito JWT tokens.
+* Limit the number of characters for each text conversion request.
+* Accept only supported audio file formats.
+* Configure IAM permissions following the Principle of Least Privilege.
+* Regularly delete or archive old audio files.
+* Secure all APIs using Amazon Cognito JWT authentication.
 
 ---
 
 ## 7. Expected Outcomes
 
-Upon completion, the system will:
+After completion, the system will:
 
-- Allow users to register and log in securely.
-- Convert text into speech using Amazon Polly.
-- Play and download generated MP3 files.
-- Store speech conversion history.
-- Be fully deployed on an AWS Serverless architecture.
-- Be easily extendable with additional languages, voices, and AI services in the future.
+* Allow users to register and sign in.
+* Convert text into speech using Amazon Polly.
+* Convert speech into text using Amazon Transcribe.
+* Play and download MP3 files.
+* Display speech transcription results.
+* Store the conversion history for both features.
+* Be fully deployed on an AWS Serverless architecture.
+* Be extensible with additional languages, voice options, and AI services in the future.
