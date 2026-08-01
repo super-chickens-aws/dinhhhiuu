@@ -148,65 +148,23 @@ The application supports two primary processing workflows: **Text-to-Speech (TTS
 
 ### Text-to-Speech (TTS) Workflow
 
-#### Step 1
+**Step 1**: The user accesses the Polly Voice application deployed on AWS Amplify.
 
-The user accesses the Polly Voice application deployed on AWS Amplify.
+**Step 2**: The user signs in using Amazon Cognito. After successful authentication, Cognito returns a JWT token.
 
----
+**Step 3**: The frontend sends a Text-to-Speech request to Amazon API Gateway together with the JWT token.
 
-#### Step 2
+**Step 4**: API Gateway validates the JWT token. If the token is valid, the request is forwarded to AWS Lambda. Otherwise, the request is rejected.
 
-The user signs in using Amazon Cognito.
+**Step 5**: AWS Lambda sends the input text to Amazon Polly. Amazon Polly synthesizes the speech and returns an audio stream.
 
-After successful authentication, Cognito returns a JWT token.
+**Step 6**: Lambda uploads the generated MP3 file to Amazon S3.
 
----
+**Step 7**: Lambda stores the conversion history in Amazon DynamoDB.
 
-#### Step 3
+**Step 8**: Lambda returns the audio file location together with the conversion information to the frontend.
 
-The frontend sends a Text-to-Speech request to Amazon API Gateway together with the JWT token.
-
----
-
-#### Step 4
-
-API Gateway validates the JWT token.
-
-If the token is valid, the request is forwarded to AWS Lambda.
-
-Otherwise, the request is rejected.
-
----
-
-#### Step 5
-
-AWS Lambda sends the input text to Amazon Polly.
-
-Amazon Polly synthesizes the speech and returns an audio stream.
-
----
-
-#### Step 6
-
-Lambda uploads the generated MP3 file to Amazon S3.
-
----
-
-#### Step 7
-
-Lambda stores the conversion history in Amazon DynamoDB.
-
----
-
-#### Step 8
-
-Lambda returns the audio file location together with the conversion information to the frontend.
-
----
-
-#### Step 9
-
-The frontend allows users to:
+**Step 9**: The frontend allows users to:
 
 * Play the audio file.
 * Download the MP3 file.
@@ -216,59 +174,23 @@ The frontend allows users to:
 
 ### Speech-to-Text (STT) Workflow
 
-#### Step 1
+**Step 1**: The user accesses the Polly Voice application on AWS Amplify and signs in using Amazon Cognito.
 
-The user accesses the Polly Voice application on AWS Amplify and signs in using Amazon Cognito.
+**Step 2**: The frontend sends a Speech-to-Text request to Amazon API Gateway together with the JWT token and the uploaded audio file.
 
----
+**Step 3**: API Gateway validates the JWT token. If the token is valid, the request is forwarded to AWS Lambda.
 
-#### Step 2
+**Step 4**: AWS Lambda uploads the audio file to Amazon S3.
 
-The frontend sends a Speech-to-Text request to Amazon API Gateway together with the JWT token and the uploaded audio file.
+**Step 5**: Lambda sends a request to Amazon Transcribe to perform speech-to-text conversion.
 
----
+**Step 6**: Amazon Transcribe processes the audio file and returns the transcription result.
 
-#### Step 3
+**Step 7**: Lambda stores the conversion history in Amazon DynamoDB.
 
-API Gateway validates the JWT token.
+**Step 8**: Lambda returns the transcribed text to the frontend.
 
-If the token is valid, the request is forwarded to AWS Lambda.
-
----
-
-#### Step 4
-
-AWS Lambda uploads the audio file to Amazon S3.
-
----
-
-#### Step 5
-
-Lambda sends a request to Amazon Transcribe to perform speech-to-text conversion.
-
----
-
-#### Step 6
-
-Amazon Transcribe processes the audio file and returns the transcription result.
-
----
-
-#### Step 7
-
-Lambda stores the conversion history in Amazon DynamoDB.
-
----
-
-#### Step 8
-
-Lambda returns the transcribed text to the frontend.
-
----
-
-#### Step 9
-
-The frontend displays the transcription result so that users can view, copy, or continue using it.
+**Step 9**: The frontend displays the transcription result so that users can view, copy, or continue using it.
 
 ---
 

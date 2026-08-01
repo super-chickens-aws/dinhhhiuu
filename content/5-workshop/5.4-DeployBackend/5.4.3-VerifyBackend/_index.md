@@ -6,14 +6,9 @@ chapter: false
 pre: " <b> 5.4.3. </b> "
 ---
 
-# Verify the Deployed Backend
+This section verifies that CloudFormation created the correct resources and that requests can flow from API Gateway to Lambda, Amazon Polly, Amazon S3, and Amazon DynamoDB.
 
-This section verifies that CloudFormation created the correct resources and that
-requests can flow from API Gateway to Lambda, Amazon Polly, Amazon S3, and
-Amazon DynamoDB.
-
-1. Open the `polly-voice-api` CloudFormation stack and verify the
-`CREATE_COMPLETE` status.
+1. Open the `polly-voice-api` CloudFormation stack and verify the `CREATE_COMPLETE` status.
 
 <!-- ![CloudFormation CREATE_COMPLETE](/images/5-Workshop/5.3-DeployBackend/5.3.3-verify/01-stack-complete.png) -->
 

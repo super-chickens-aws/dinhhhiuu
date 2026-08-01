@@ -6,8 +6,6 @@ chapter: false
 pre: " <b> 5.4.2. </b> "
 ---
 
-# Deploy the Backend with AWS SAM
-
 AWS Serverless Application Model (AWS SAM) is used to describe, build, and
 deploy the entire Polly Voice backend. SAM transforms `template.yaml` into a
 CloudFormation stack so that the resources can be created and updated

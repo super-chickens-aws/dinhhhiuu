@@ -6,130 +6,75 @@ chapter: false
 pre: " <b> 5.5.2. </b> "
 ---
 
-# Connect the Frontend to Amazon Cognito
+In this section, an Amazon Cognito User Pool is configured to manage user
+accounts for Polly Voice. The React frontend uses Cognito to register users,
+send email confirmation codes, sign users in, obtain an access token, and send
+that token to the backend.
 
-In this section, an Amazon Cognito User Pool is configured to manage Polly Voice
-accounts. The React frontend uses Cognito to sign users up, send email
-confirmation codes, sign users in, obtain access tokens, and send those tokens
-to the backend.
+1. Open the Amazon Cognito Console: [Amazon Cognito Console](https://console.aws.amazon.com/cognito/). Verify that the selected Region is **Europe (Stockholm) – `eu-north-1`**, then
+choose **User Pools** from the left navigation pane.
 
-Authentication flow:
+![Open Amazon Cognito](https://hieuthaihcmut.github.io/fcj-workshop-template//images/5-Workshop/5.4-DeployFrontend/5.4.2-cognito/01-open-cognito.png)
+![Open Amazon Cognito](https://hieuthaihcmut.github.io/fcj-workshop-template//images/5-Workshop/5.4-DeployFrontend/5.4.2-cognito/01-open-cognito-2.png)
 
-```mermaid
-sequenceDiagram
-    actor User
-    participant React as React / Amplify
-    participant Cognito as Amazon Cognito
-    participant API as API Gateway
-    participant Lambda as Lambda / Express
+2. Choose **Create user pool** to create a new User Pool.
 
-    User->>React: Sign up with an email
-    React->>Cognito: SignUp
-    Cognito-->>User: Send confirmation code
-    User->>React: Enter confirmation code
-    React->>Cognito: ConfirmSignUp
-    User->>React: Sign in
-    React->>Cognito: SRP authentication
-    Cognito-->>React: Access token
-    React->>API: REST request + Bearer token
-    API->>Lambda: Forward request
-    Lambda->>Lambda: Verify Cognito JWT
-    Lambda-->>React: User-specific data
-```
+![Create user pool](https://hieuthaihcmut.github.io/fcj-workshop-template//images/5-Workshop/5.4-DeployFrontend/5.4.2-cognito/01-create-user-pool.png)
 
-{{% notice info %}}
-The frontend is a Single-page Application running in a browser, so its App
-Client must not use a client secret. A secret embedded in browser JavaScript
-cannot be protected from the user.
-{{% /notice %}}
+3. In the **Define your application** section, select:
 
-## Create a Cognito User Pool
+**Single-page app (SPA)**.
 
-1. Open the [Amazon Cognito Console](https://console.aws.amazon.com/cognito/).
-Verify that the selected region is **Europe (Stockholm) – `eu-north-1`**, then
-select **Create user pool** or **Set up resources for your application**.
-
-![Open Amazon Cognito](https://hieuthaihcmut.github.io/fcj-workshop-template/images/5-Workshop/5.4-DeployFrontend/5.4.2-cognito/01-open-cognito.png)
-
-2. Under **Define your application**, select:
+The SPA application type is appropriate for the React frontend and creates an
+App Client. Then enter the application name in **Name your application**. For
+example:
 
 ```text
-Application type: Single-page application (SPA)
-Application name: polly-voice
+polly-voice
 ```
 
-The SPA type is appropriate for the React frontend and creates an App Client
-without a client secret.
+![Define the Cognito application](https://hieuthaihcmut.github.io/fcj-workshop-template//images/5-Workshop/5.4-DeployFrontend/5.4.2-cognito/02-define-application.png)
 
-![Define the Cognito application](https://hieuthaihcmut.github.io/fcj-workshop-template/images/5-Workshop/5.4-DeployFrontend/5.4.2-cognito/02-define-application.png)
+4. In **Options for sign-in identifiers**, keep only **E-mail**.
 
-3. Under **Options for sign-in identifiers**, keep only **E-mail**:
+Polly Voice uses email as the registration and sign-in identifier. Removing
+username and phone number avoids additional identity handling and phone number
+verification. Under **Required attributes for sign-up**, select the `name`
+attribute if the AWS Console allows additional attributes to be configured.
+Email is already used as the sign-in identifier.
 
-```text
-E-mail:       Selected
-Phone number: Not selected
-Username:     Not selected
-```
+![Select email sign-in](https://hieuthaihcmut.github.io/fcj-workshop-template//images/5-Workshop/5.4-DeployFrontend/5.4.2-cognito/03-email-sign-in.png)
 
-Polly Voice uses an email address for both sign-up and sign-in. Excluding a
-username and phone number prevents the interface from having to manage extra
-identifiers or phone verification.
-
-![Select email sign-in](https://hieuthaihcmut.github.io/fcj-workshop-template/images/5-Workshop/5.4-DeployFrontend/5.4.2-cognito/03-email-sign-in.png)
-
-{{% notice warning %}}
-Sign-in identifiers are important settings and cannot be changed freely after
-the User Pool is created. Verify that only E-mail is selected.
-{{% /notice %}}
-
-4. Under **Required attributes for sign-up**, select the `name` attribute if the
-AWS Console allows additional attributes to be selected. Email is already used
-as the sign-in identifier.
-
-The frontend submits these attributes during sign-up:
+The frontend submits the following attributes during registration:
 
 ```text
 email
 name
 ```
 
-If the page requests a **Return URL**, enter the Amplify domain obtained in
-section 5.4.1:
+5. Under **Add a return URL**, enter the Amplify domain obtained in Section
+5.4.1:
 
 ```text
 https://<branch>.<app-id>.amplifyapp.com
 ```
 
-The current code uses Cognito SRP directly instead of the Hosted UI, so the
-Return URL is not part of the primary sign-in flow. Leave it empty when the
-field is optional.
+Then choose **Create user directory** to create the Cognito User Pool.
 
-![Configure user attributes](https://hieuthaihcmut.github.io/fcj-workshop-template/images/5-Workshop/5.4-DeployFrontend/5.4.2-cognito/04-user-attributes.png)
+![Configure user attributes](https://hieuthaihcmut.github.io/fcj-workshop-template//images/5-Workshop/5.4-DeployFrontend/5.4.2-cognito/04-user-attributes1.png)
 
-5. Review the settings and select **Create user pool** or
-**Create user directory**.
+## Retrieve the Cognito Connection Information
 
-Expected result:
-
-- A Cognito User Pool is created in `eu-north-1`.
-- The `polly-voice` App Client is created.
-- The App Client has no client secret.
-- Email is used as the sign-in identifier.
-
-![Create the user pool](https://hieuthaihcmut.github.io/fcj-workshop-template/images/5-Workshop/5.4-DeployFrontend/5.4.2-cognito/05-create-user-pool.png)
-
-## Obtain the Cognito connection values
-
-6. After creation succeeds, open:
+1. After the User Pool has been created, open:
 
 ```text
 Amazon Cognito
 → User pools
-→ The newly created User Pool
+→ Newly created User Pool
 → Overview
 ```
 
-Locate and record the **User pool ID**. Its format is:
+Locate and record the **User Pool ID**. The value has the following format:
 
 ```text
 eu-north-1_xxxxxxxxx
@@ -141,9 +86,9 @@ This value is used for:
 VITE_COGNITO_USER_POOL_ID
 ```
 
-![Cognito User Pool ID](https://hieuthaihcmut.github.io/fcj-workshop-template/images/5-Workshop/5.4-DeployFrontend/5.4.2-cognito/06-user-pool-id.png)
+![Cognito User Pool ID](https://hieuthaihcmut.github.io/fcj-workshop-template//images/5-Workshop/5.4-DeployFrontend/5.4.2-cognito/06-user-pool-id.png)
 
-7. In the User Pool, open:
+7. Inside the User Pool, open:
 
 ```text
 Applications
@@ -157,95 +102,45 @@ Locate and record the **Client ID**. This value is used for:
 VITE_COGNITO_CLIENT_ID
 ```
 
-Verify that **Client secret** displays `-`, `None`, or
-**No client secret**.
+![Cognito App Client ID](https://hieuthaihcmut.github.io/fcj-workshop-template//images/5-Workshop/5.4-DeployFrontend/5.4.2-cognito/07-app-client-id.png)
 
-![Cognito App Client ID](https://hieuthaihcmut.github.io/fcj-workshop-template/images/5-Workshop/5.4-DeployFrontend/5.4.2-cognito/07-app-client-id.png)
-
-{{% notice warning %}}
-Do not confuse the User Pool ID, App Client ID, and User Pool ARN. The frontend
-requires the User Pool ID and App Client ID, not the ARN.
-{{% /notice %}}
-
-## Verify the App Client
-
-8. In the `polly-voice` App Client, verify that the authentication flows include:
-
-```text
-Secure remote password (SRP)
-Get user tokens from existing authenticated sessions
-```
-
-The React code uses `amazon-cognito-identity-js` and SRP authentication. A
-machine-to-machine or client credentials flow is not required.
-
-![App Client authentication flows](https://hieuthaihcmut.github.io/fcj-workshop-template/images/5-Workshop/5.4-DeployFrontend/5.4.2-cognito/08-authentication-flows.png)
-
-9. Open **Authentication** or **Sign-up** in the User Pool and verify:
-
-- Self-service sign-up is enabled.
-- Cognito sends confirmation codes by email.
-- Email is used to verify the account.
-- A user must confirm the code before signing in.
-- The password policy matches the interface, for example at least 8 characters.
-
-![Cognito sign-up configuration](https://hieuthaihcmut.github.io/fcj-workshop-template/images/5-Workshop/5.4-DeployFrontend/5.4.2-cognito/09-sign-up-settings.png)
-
-## Update the Amplify frontend
-
-10. Open the `polly-voice` Amplify application and select:
+10. Open the Amplify application `polly-voice`, then navigate to:
 
 ```text
 Hosting
 → Environment variables
 ```
 
-Update or add:
+![Amplify environment variables](https://hieuthaihcmut.github.io/fcj-workshop-template//images/5-Workshop/5.4-DeployFrontend/5.4.2-cognito/08-amplify-environment-variables.png)
+
+Choose **Manage variables** and add the following environment variables:
 
 | Variable | Value | Description |
 |---|---|---|
-| `VITE_AWS_ENABLED` | `true` | Enables Cognito authentication in the frontend. |
-| `VITE_AWS_REGION` | `eu-north-1` | The region containing the Cognito User Pool. |
+| `VITE_AWS_ENABLED` | `true` | Enables Cognito integration on the frontend. |
+| `VITE_AWS_REGION` | `eu-north-1` | The Region containing the Cognito User Pool. |
 | `VITE_COGNITO_USER_POOL_ID` | `eu-north-1_xxxxxxxxx` | The ID of the newly created User Pool. |
 | `VITE_COGNITO_CLIENT_ID` | `<APP_CLIENT_ID>` | The ID of the `polly-voice` SPA App Client. |
 
-Keep the API Gateway URL configured in section 5.4.1:
+Then choose **Save** to store the variables.
 
-```text
-VITE_API_BASE_URL=https://<API_ID>.execute-api.eu-north-1.amazonaws.com/api/v1
-```
+![Amplify Cognito environment variables](https://hieuthaihcmut.github.io/fcj-workshop-template//images/5-Workshop/5.4-DeployFrontend/5.4.2-cognito/10-amplify-environment-variables.png)
 
-Complete production configuration:
+11. After saving the environment variables, open **Overview**, select the
+correct **Production branch** that was previously built, and choose
+**Redeploy this version**.
 
-```text
-VITE_API_BASE_URL=https://<API_ID>.execute-api.eu-north-1.amazonaws.com/api/v1
-VITE_AWS_ENABLED=true
-VITE_AWS_REGION=eu-north-1
-VITE_COGNITO_USER_POOL_ID=eu-north-1_xxxxxxxxx
-VITE_COGNITO_CLIENT_ID=xxxxxxxxxxxxxxxxxxxxxxxxxx
-```
+Redeployment is required because Vite embeds all `VITE_*` variables into the
+JavaScript bundle during the build process. Simply saving the variables without
+rebuilding causes the website to continue using the previous configuration.
 
-![Amplify Cognito environment variables](https://hieuthaihcmut.github.io/fcj-workshop-template/images/5-Workshop/5.4-DeployFrontend/5.4.2-cognito/10-amplify-environment-variables.png)
+![Redeploy the Amplify frontend](https://hieuthaihcmut.github.io/fcj-workshop-template//images/5-Workshop/5.4-DeployFrontend/5.4.2-cognito/11-redeploy-frontend.png)
+![Redeploy the Amplify frontend](https://hieuthaihcmut.github.io/fcj-workshop-template//images/5-Workshop/5.4-DeployFrontend/5.4.2-cognito/11-redeploy-frontend1.png)
 
-{{% notice info %}}
-The User Pool ID and App Client ID are not secrets. However, do not store a
-password, access token, ID token, refresh token, or AWS credentials in these
-variables.
-{{% /notice %}}
+## Synchronize the Backend Configuration
 
-11. After saving the environment variables, select **Redeploy this version** or
-start a new deployment for the production branch.
-
-Redeployment is required because Vite embeds `VITE_*` variables in the
-JavaScript bundle during the build. Saving a variable without rebuilding leaves
-the website on the previous configuration.
-
-![Redeploy the Amplify frontend](https://hieuthaihcmut.github.io/fcj-workshop-template/images/5-Workshop/5.4-DeployFrontend/5.4.2-cognito/11-redeploy-frontend.png)
-
-## Synchronize the backend configuration
-
-12. The backend must verify JWTs from the same User Pool and App Client used by
-the frontend. Verify the Lambda environment variables:
+12. The backend must validate JWTs issued by the same User Pool and App Client
+used by the frontend. Verify the following Lambda environment variables:
 
 ```text
 AWS_COGNITO_USER_POOL_ID
@@ -253,98 +148,94 @@ AWS_COGNITO_CLIENT_ID
 AWS_COGNITO_ISSUER_URI
 ```
 
-The issuer URI has this format:
+The Issuer URI has the following format:
 
 ```text
 https://cognito-idp.eu-north-1.amazonaws.com/<USER_POOL_ID>
 ```
 
-If the newly created User Pool or App Client differs from the backend
-configuration, update the SAM parameters and redeploy the backend. A frontend
-and backend using different User Pools will cause JWT validation to fail.
+If the newly created User Pool or App Client differs from the current backend
+configuration, update the SAM parameters and redeploy the backend. If the
+frontend and backend use different User Pools, JWT validation will fail.
 
-![Lambda Cognito environment variables](https://hieuthaihcmut.github.io/fcj-workshop-template/images/5-Workshop/5.4-DeployFrontend/5.4.2-cognito/12-lambda-cognito-configuration.png)
+<!-- ![Lambda Cognito environment variables](https://hieuthaihcmut.github.io/fcj-workshop-template//images/5-Workshop/5.4-DeployFrontend/5.4.2-cognito/12-lambda-cognito-configuration.png) -->
 
-{{% notice warning %}}
-Do not edit Lambda environment variables manually when the function is managed
-by CloudFormation. Update the SAM/CloudFormation parameters to avoid
-configuration drift.
-{{% /notice %}}
+## Test User Registration and Sign-In
 
-## Test sign-up and sign-in
+13. Open the Amplify production website and choose **Sign up**. Enter:
 
-13. Open the Amplify production website and select **Sign up**. Enter:
+- Display name
+- Email
+- A password that satisfies the password policy
 
-- Display name.
-- Email address.
-- A password that satisfies the password policy.
+After registration, the application displays the confirmation code form. The
+confirmation code is sent by Cognito to the registered email address.
 
-After sign-up, the interface changes to a confirmation code form. Cognito sends
-the code to the registered email address.
+<!-- ![Register a Polly Voice account](https://hieuthaihcmut.github.io/fcj-workshop-template//images/5-Workshop/5.4-DeployFrontend/5.4.2-cognito/13-sign-up-form.png) -->
 
-![Register a Polly Voice account](https://hieuthaihcmut.github.io/fcj-workshop-template/images/5-Workshop/5.4-DeployFrontend/5.4.2-cognito/13-sign-up-form.png)
+14. Enter the confirmation code and confirm the account. If the code has
+expired or the email was not received, use the **Resend confirmation code**
+feature.
 
-14. Enter the confirmation code and confirm the account. If the code expires or
-the email is not received, use **Resend confirmation code**.
+The confirmation code form is displayed directly inside the application and
+does not rely on a browser popup.
 
-The code form is displayed inside the application and does not depend on a
-browser popup.
+<!-- ![Confirm the email address](https://hieuthaihcmut.github.io/fcj-workshop-template//images/5-Workshop/5.4-DeployFrontend/5.4.2-cognito/14-confirm-email.png) -->
 
-![Confirm the email address](https://hieuthaihcmut.github.io/fcj-workshop-template/images/5-Workshop/5.4-DeployFrontend/5.4.2-cognito/14-confirm-email.png)
+15. After confirming the account, sign in using the email address and password.
+The sign-in is considered successful when:
 
-15. After confirmation, sign in with the email address and password. Sign-in is
-successful when:
+- The header displays the user's name.
+- The **Sign in** button changes to **Sign out**.
+- The profile displays the Cognito Subject ID.
+- TTS features become available according to the authenticated user limits.
+- The History page can be accessed.
 
-- The header displays the user name.
-- The Sign in button changes to Sign out.
-- Profile displays the Cognito Subject ID.
-- TTS enables the authenticated-user limit.
-- History can be accessed.
+<!-- ![Cognito sign-in succeeded](https://hieuthaihcmut.github.io/fcj-workshop-template//images/5-Workshop/5.4-DeployFrontend/5.4.2-cognito/15-sign-in-success.png) -->
 
-![Cognito sign-in succeeded](https://hieuthaihcmut.github.io/fcj-workshop-template/images/5-Workshop/5.4-DeployFrontend/5.4.2-cognito/15-sign-in-success.png)
-
-16. In the Cognito Console, open:
+16. Open the Cognito Console and navigate to:
 
 ```text
 User management
 → Users
 ```
 
-Verify that the new user has this status:
+Verify that the newly created user has the following status:
 
 ```text
 CONFIRMED
 ```
 
-![Confirmed Cognito user](https://hieuthaihcmut.github.io/fcj-workshop-template/images/5-Workshop/5.4-DeployFrontend/5.4.2-cognito/16-confirmed-user.png)
+<!-- ![Confirmed Cognito user](https://hieuthaihcmut.github.io/fcj-workshop-template//images/5-Workshop/5.4-DeployFrontend/5.4.2-cognito/16-confirmed-user.png) -->
 
-17. Open Developer Tools → **Network**, call a protected endpoint such as
-History, and verify that the request contains:
+17. Open **Developer Tools → Network**, call a protected endpoint such as
+History, and verify that the request contains the following header:
 
 ```http
 Authorization: Bearer <access-token>
 ```
 
-Do not include the complete token in a report screenshot. Keep only the header
-name visible or mask most of the token value.
+Do not include the complete token in the report screenshots. Only keep the
+header name visible or mask most of the token value.
 
-![Authenticated API request](https://hieuthaihcmut.github.io/fcj-workshop-template/images/5-Workshop/5.4-DeployFrontend/5.4.2-cognito/17-authenticated-request.png)
+<!-- ![Authenticated API request](https://hieuthaihcmut.github.io/fcj-workshop-template//images/5-Workshop/5.4-DeployFrontend/5.4.2-cognito/17-authenticated-request.png) -->
 
-## Common issues
+## Common Issues
 
 | Error | Cause | Resolution |
 |---|---|---|
-| `User is not confirmed` | The user has not entered the confirmation code | Open the Confirm form or resend the code |
-| `User does not exist` | The email belongs to a different User Pool | Verify `VITE_COGNITO_USER_POOL_ID` |
-| `Incorrect username or password` | Incorrect credentials or a changed password | Verify the credentials or reset the password |
-| `Invalid client` | Incorrect App Client ID or an App Client with a secret | Use the SPA App Client without a secret |
-| API returns HTTP 401 | Frontend and backend use different User Pools or Client IDs | Synchronize Amplify variables and SAM parameters |
-| Website still uses old settings | Variables were saved without rebuilding | Redeploy the Amplify branch |
-| Confirmation email is missing | Incorrect email, spam filtering, or code not resent | Verify the address and use Resend code |
+| `User is not confirmed` | The user has not entered the confirmation code. | Switch to the confirmation form or resend the code. |
+| `User does not exist` | The email belongs to a different User Pool. | Verify `VITE_COGNITO_USER_POOL_ID`. |
+| `Incorrect username or password` | Incorrect email/password or the password has been changed. | Verify the credentials or perform a password reset if necessary. |
+| `Invalid client` | Incorrect App Client ID or the client has a client secret. | Use a SPA App Client without a client secret. |
+| API returns HTTP 401 | The frontend and backend use different User Pools or Client IDs. | Synchronize the Amplify environment variables and SAM parameters. |
+| The website still uses the previous configuration | The variables were saved but the frontend was not rebuilt. | Redeploy the Amplify branch. |
+| Confirmation email not received | Incorrect email address, the email is in the Spam folder, or the code has not been resent. | Verify the email address and use **Resend confirmation code**. |
 
 ## Result
 
-Amazon Cognito is now connected to the Polly Voice frontend. Users can sign up,
-confirm their email addresses, sign in, and sign out on the Amplify website. The
-frontend obtains an access token from Cognito and sends it to API Gateway; the
-backend validates the token and separates TTS/STT history by Cognito Subject ID.
+Amazon Cognito has been successfully integrated with the Polly Voice frontend.
+Users can register, confirm their email addresses, sign in, and sign out on the
+Amplify-hosted website. The frontend obtains an access token from Cognito and
+sends it to API Gateway. The backend validates the token to separate each
+user's TTS/STT history based on the corresponding Cognito Subject ID.

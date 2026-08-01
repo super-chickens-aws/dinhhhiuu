@@ -6,15 +6,9 @@ chapter: false
 pre: " <b> 5.5.1. </b> "
 ---
 
-# Deploy the Frontend with AWS Amplify Hosting
+In this section, the Polly Voice React frontend is connected to GitHub and deployed with AWS Amplify Hosting. Amplify automatically installs the dependencies, builds the Vite source, publishes the `dist` directory, and provides an HTTPS domain for the application.
 
-In this section, the Polly Voice React frontend is connected to GitHub and
-deployed with AWS Amplify Hosting. Amplify automatically installs the
-dependencies, builds the Vite source, publishes the `dist` directory, and
-provides an HTTPS domain for the application.
-
-1. Open the [AWS Amplify Console](https://console.aws.amazon.com/amplify/).
-Verify that the selected region is **Europe (Stockholm) – `eu-north-1`**.
+1. Open the [AWS Amplify Console](https://console.aws.amazon.com/amplify/). Verify that the selected region is **Europe (Stockholm) – `eu-north-1`**.
 
 ![Amplify Hosting](https://hieuthaihcmut.github.io/fcj-workshop-template//images/5-Workshop/5.4-DeployFrontend/amplify-hosting.png)
 

@@ -145,7 +145,7 @@ Nếu User Pool hoặc App Client vừa được tạo khác với cấu hình b
 cập nhật SAM parameters và deploy lại backend. Frontend và backend dùng hai
 User Pool khác nhau sẽ làm JWT bị từ chối.
 
-![Lambda Cognito environment variables](https://hieuthaihcmut.github.io/fcj-workshop-template//images/5-Workshop/5.4-DeployFrontend/5.4.2-cognito/12-lambda-cognito-configuration.png)
+<!-- ![Lambda Cognito environment variables](https://hieuthaihcmut.github.io/fcj-workshop-template//images/5-Workshop/5.4-DeployFrontend/5.4.2-cognito/12-lambda-cognito-configuration.png) -->
 
 
 ## Kiểm thử đăng ký và đăng nhập
@@ -159,7 +159,7 @@ User Pool khác nhau sẽ làm JWT bị từ chối.
 Sau khi đăng ký, giao diện chuyển sang form nhập confirmation code. Mã được
 Cognito gửi đến email đã đăng ký.
 
-![Register a Polly Voice account](https://hieuthaihcmut.github.io/fcj-workshop-template//images/5-Workshop/5.4-DeployFrontend/5.4.2-cognito/13-sign-up-form.png)
+<!-- ![Register a Polly Voice account](https://hieuthaihcmut.github.io/fcj-workshop-template//images/5-Workshop/5.4-DeployFrontend/5.4.2-cognito/13-sign-up-form.png) -->
 
 14. Nhập confirmation code và chọn xác nhận. Nếu mã hết hạn hoặc không nhận được
 email, sử dụng chức năng **Resend confirmation code**.
@@ -167,7 +167,7 @@ email, sử dụng chức năng **Resend confirmation code**.
 Giao diện nhập mã được hiển thị trực tiếp trong ứng dụng, không phụ thuộc popup
 của trình duyệt.
 
-![Confirm the email address](https://hieuthaihcmut.github.io/fcj-workshop-template//images/5-Workshop/5.4-DeployFrontend/5.4.2-cognito/14-confirm-email.png)
+<!-- ![Confirm the email address](https://hieuthaihcmut.github.io/fcj-workshop-template//images/5-Workshop/5.4-DeployFrontend/5.4.2-cognito/14-confirm-email.png) -->
 
 15. Sau khi xác nhận, đăng nhập bằng email và password. Đăng nhập thành công khi:
 
@@ -177,7 +177,7 @@ của trình duyệt.
 - TTS cho phép giới hạn dành cho user.
 - History có thể được truy cập.
 
-![Cognito sign-in succeeded](https://hieuthaihcmut.github.io/fcj-workshop-template//images/5-Workshop/5.4-DeployFrontend/5.4.2-cognito/15-sign-in-success.png)
+<!-- ![Cognito sign-in succeeded](https://hieuthaihcmut.github.io/fcj-workshop-template//images/5-Workshop/5.4-DeployFrontend/5.4.2-cognito/15-sign-in-success.png) -->
 
 16. Mở Cognito Console, chọn:
 
@@ -192,7 +192,7 @@ Kiểm tra user vừa tạo có trạng thái:
 CONFIRMED
 ```
 
-![Confirmed Cognito user](https://hieuthaihcmut.github.io/fcj-workshop-template//images/5-Workshop/5.4-DeployFrontend/5.4.2-cognito/16-confirmed-user.png)
+<!-- ![Confirmed Cognito user](https://hieuthaihcmut.github.io/fcj-workshop-template//images/5-Workshop/5.4-DeployFrontend/5.4.2-cognito/16-confirmed-user.png) -->
 
 17. Mở Developer Tools → **Network**, gọi một endpoint được bảo vệ như History
 và kiểm tra request có header:
@@ -204,7 +204,7 @@ Authorization: Bearer <access-token>
 Không đưa token đầy đủ vào ảnh báo cáo. Chỉ giữ phần tên header hoặc che phần lớn
 giá trị token.
 
-![Authenticated API request](https://hieuthaihcmut.github.io/fcj-workshop-template//images/5-Workshop/5.4-DeployFrontend/5.4.2-cognito/17-authenticated-request.png)
+<!-- ![Authenticated API request](https://hieuthaihcmut.github.io/fcj-workshop-template//images/5-Workshop/5.4-DeployFrontend/5.4.2-cognito/17-authenticated-request.png) -->
 
 ## Các lỗi thường gặp
 

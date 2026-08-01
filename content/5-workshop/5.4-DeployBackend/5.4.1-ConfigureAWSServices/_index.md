@@ -6,8 +6,6 @@ chapter: false
 pre: " <b> 5.4.1. </b> "
 ---
 
-# Configure AWS Services for the Backend
-
 This section prepares the AWS services used by the Polly Voice backend before
 the application source code is deployed. The resources are configured in
 **Europe (Stockholm) – `eu-north-1`**.
